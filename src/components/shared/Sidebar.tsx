@@ -1,5 +1,6 @@
 import { motion, useAnimationControls } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useSidebar } from "../../store/useSidebar";
 
 const containerVariants = {
   close: {
@@ -21,16 +22,18 @@ const containerVariants = {
 };
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
+
   const containerControls = useAnimationControls();
 
   useEffect(() => {
-    if (isOpen) {
+    if (isSidebarOpen) {
       containerControls.start("open");
     } else {
       containerControls.start("close");
     }
-  }, [isOpen]);
+  }, [isSidebarOpen]);
+
   return (
     <motion.nav
       variants={containerVariants}
@@ -40,10 +43,7 @@ const Sidebar = () => {
     >
       <div className="flex flex-row w-full justify-between place-items-center">
         <div className="w-10 h-10 bg-gradient-to-br from-sky-500 to-sky-700 rounded-full">
-          <button
-            className="p-1 rounded flex"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          <button className="p-1 rounded flex" onClick={toggleSidebar}>
             ＞
           </button>
         </div>

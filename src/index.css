@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes slideIn {
+  from {
+    max-height: 0;
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    max-height: 1000px;
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    max-height: 1000px;
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease forwards;
+}
+
+.slide-out {
+  animation: slideOut 0.3s ease forwards;
+  max-height: 0;
+  overflow: hidden;
+}

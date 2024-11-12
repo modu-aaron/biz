@@ -9,7 +9,7 @@ import { useAuth } from "../../store/useAuth";
 const SignIn = () => {
   const { handleSubmit, register, watch } = useForm();
   const { isSpinnerOpen, setIsSpinner } = useSpinner();
-  const { signIn, getMenus, accessToken } = useAuth();
+  const { signIn, getMenus } = useAuth();
   const navigate = useNavigate();
 
   const id = watch("id");
@@ -22,6 +22,7 @@ const SignIn = () => {
         email: id,
         password: pw,
       });
+      //TODO: 추후 router guard로 변경
       await getMenus();
       setIsSpinner(false);
       navigate("/ticket");
@@ -37,7 +38,6 @@ const SignIn = () => {
       <div className="flex flex-col md:flex-row h-full w-full">
         <div className="flex-grow-[3] md:flex-grow-[6] bg-center bg-cover bg-no-repeat bg-coverImg" />
         <div className="flex-grow-[7] md:flex-grow-[4] overflow-hidden">
-          {`accessToken: ${accessToken}`}
           <div className="h-full relative">
             <form
               onSubmit={handleSubmit(onSubmit)}

@@ -93,6 +93,7 @@ const NavBar = () => {
   const { data } = dummyData;
   const width = useWindowWidth();
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuth();
 
   const onSignOut = () => {
     signOut();
@@ -148,7 +149,7 @@ const NavBar = () => {
             />
             {isSidebarOpen && (
               <div className="flex py-4 items-center w-full justify-center relative">
-                <p>{data.userName}님</p>
+                <p>{user?.name} 님</p>
                 <button
                   className="p-1 rounded absolute right-0 text-neutral-600"
                   onClick={onSignOut}

@@ -1,4 +1,4 @@
-import axios from "../../axios/index";
+import axios from "../../axios";
 import {
   Menu,
   Partner,
@@ -12,24 +12,20 @@ const signIn = async (payload: {
   password: string;
   pSeq?: number;
 }) => {
-  const { data } = await axios.post<{
-    accessToken: string;
-    refreshToken: string;
-  }>("/auth/login", payload);
+  const { data } = await axios.post<
+    | { accessToken: string; refreshToken: string }
+    | { partner: PartnerSignInInfo[] }
+  >("/auth/login", payload);
   return data;
 };
 
-const getMenus = async (token: string) => {
+const getMenus = async () => {
   const { data } = await axios.get<{
     menus: Menu[];
     permissions: PartnerCenterPermission[];
     profile: User;
     partners: Partner[];
-  }>("/auth/menu", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  }>("/auth/menu");
   return data;
 };
 

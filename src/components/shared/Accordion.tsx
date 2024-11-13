@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Menu } from "../../services/api/auth/type";
-import LogOutIcon from "../../assets/LogOutIcon";
 
 interface AccordionItemProps {
   title: string;
@@ -15,7 +14,11 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
   };
 
   return (
-    <div className={`${!isOpen && "border-b"} border-slate-200 w-full`}>
+    <div
+      className={`${!isOpen && "border-b"} ${
+        title === "파트너" && "border-none"
+      }  border-slate-200 w-full`}
+    >
       <button
         onClick={toggleAccordion}
         className="w-full flex justify-between items-center py-3 text-slate-800"
@@ -70,7 +73,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
 
 const Accordion = ({ data }: { data: Menu[] }) => {
   return (
-    <div className="w-full bg-white px-4 md:px-0">
+    <div className="w-full bg-white px-5 md:px-0 text-[14px]">
       {data.map((item, index) => (
         <AccordionItem key={index} title={item.name} children={item.children} />
       ))}

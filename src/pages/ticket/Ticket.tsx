@@ -3,10 +3,6 @@ import MainWrapper from "../../components/shared/MainWrapper";
 import { useSpinner } from "../../store/useSpinner";
 
 const Ticket = () => {
-  const { setIsSpinner } = useSpinner();
-  const handle = () => {
-    setIsSpinner(true);
-  };
   return (
     <MainWrapper>
       <BaseTitle text="이용현황" />

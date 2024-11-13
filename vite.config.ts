@@ -12,7 +12,7 @@ if (!viteEnv || !Object.keys(VITE_ENV).includes(viteEnv)) {
 
 dns.setDefaultResultOrder("verbatim");
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { local, ...rest } = VITE_ENV;
+const { _local, ...rest } = VITE_ENV;
 
 if (Object.values(rest).includes(viteEnv)) {
   try {

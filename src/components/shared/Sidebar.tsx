@@ -75,7 +75,7 @@ const NavBar = () => {
           variants={containerVariants}
           animate={containerControls}
           initial={isSidebarOpen ? "open" : "close"}
-          className={`bg-white flex flex-col z-10 gap-5 p-5 fixed items-center top-0 left-0 h-full shadow`}
+          className={`bg-white flex flex-col z-10 gap-5 p-4 fixed items-center top-0 left-0 h-full shadow`}
         >
           <div className={`flex w-full justify-center place-items-center`}>
             {isSidebarOpen ? (
@@ -114,7 +114,7 @@ const NavBar = () => {
         </motion.nav>
       ) : (
         <div
-          className={`flex bg-white justify-between z-10 p-5 fixed items-center top-0 h-[48px] w-full shadow`}
+          className={`flex bg-white justify-between z-10 p-4 fixed items-center top-0 h-[48px] w-full shadow border-b-neutral-500`}
         >
           <img src={bizLogo} className="object-cover w-24" />
           <div className="flex gap-2 items-center">
@@ -125,10 +125,11 @@ const NavBar = () => {
           {isOpen && (
             <div className="fixed top-[48px] left-0 w-full">
               <Accordion data={menus} />
-              <div className={`py-3 bg-white px-4 md:px-0 flex justify-end`}>
-                <span onClick={onSignOut} className="cursor-pointer">
-                  <LogOutIcon />
-                </span>
+              <div
+                onClick={onSignOut}
+                className={`pb-4 pt-10 border-b border-neutral-200 cursor-pointer bg-white px-5 md:px-0 flex text-sm text-slate-500`}
+              >
+                로그아웃
               </div>
             </div>
           )}

@@ -1,6 +1,6 @@
 import { useForm, Controller } from "react-hook-form";
 
-const SelectBox = ({ name, label, options, control }) => {
+const SelectBox = ({ name, label, options, control, className }) => {
   return (
     <div className="max-w-sm">
       {label && (
@@ -19,7 +19,11 @@ const SelectBox = ({ name, label, options, control }) => {
           <select
             {...field}
             id={name}
-            className="border border-neutral-100 text-sm min-w-8 rounded-sm block py-2 pl-2"
+            className={`${
+              className
+                ? className
+                : 'border border-neutral-100 text-sm min-w-8 rounded-sm block py-2 pl-2"'
+            }`}
           >
             {options.map((option) => (
               <option key={option.value} value={option.value}>

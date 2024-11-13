@@ -23,6 +23,7 @@ const Ticket = () => {
                   name="selectedSearchKey"
                   label={null}
                   control={control}
+                  className={null}
                   options={[
                     { value: null, label: "선택" },
                     { value: "carNum", label: "차량번호" },

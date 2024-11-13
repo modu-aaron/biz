@@ -2,21 +2,25 @@ import { useState } from "react";
 import TicketIcon from "../../assets/TicketIcon";
 import PartnerIcon from "../../assets/PartnerIcon";
 import CashIcon from "../../assets/CashIcon";
+import { Menu } from "../../services/api/auth/type";
 
-const DropDownItem = ({ item }) => {
+const DropDownItem = ({ children }: { children: Menu["children"] }) => {
   return (
     <>
-      <a
-        href={item.content}
-        className="text-[#333333] px-5 py-3 w-[110px] text-center whitespace-nowrap"
-      >
-        {item.title}
-      </a>
+      {children?.map((item, index) => (
+        <a
+          key={index}
+          href={item.uri ? item.uri : ""}
+          className="text-[#333333] px-5 py-3 w-[110px] text-center whitespace-nowrap"
+        >
+          {item.name}
+        </a>
+      ))}
     </>
   );
 };
 
-export const DropDown = ({ data }) => {
+export const DropDown = ({ data }: { data: Menu[] }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleDropdown = (index) => {
@@ -43,10 +47,9 @@ export const DropDown = ({ data }) => {
               activeIndex === index ? "slide-in" : "slide-out"
             }`}
           >
-            {activeIndex === index &&
-              menuItem.content.map((item, idx) => (
-                <DropDownItem key={idx} item={item} />
-              ))}
+            {activeIndex === index && (
+              <DropDownItem children={menuItem.children} />
+            )}
           </ul>
         </li>
       ))}

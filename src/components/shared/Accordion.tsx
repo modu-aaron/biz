@@ -1,14 +1,13 @@
 import { useState } from "react";
+import { Menu } from "../../services/api/auth/type";
+import LogOutIcon from "../../assets/LogOutIcon";
 
 interface AccordionItemProps {
   title: string;
-  content: {
-    title: string;
-    content: string;
-  }[];
+  children?: Menu[];
 }
 
-const AccordionItem = ({ title, content }: AccordionItemProps) => {
+const AccordionItem = ({ title, children }: AccordionItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleAccordion = () => {
@@ -58,9 +57,9 @@ const AccordionItem = ({ title, content }: AccordionItemProps) => {
         }`}
       >
         <div className="pb-5 text-sm text-slate-500">
-          {content.map((item, index) => (
+          {children?.map((item, index) => (
             <div className="py-2" key={index}>
-              <a href={item.content}>{item.title}</a>
+              <a href={item.uri ? item.uri : ""}>{item.name}</a>
             </div>
           ))}
         </div>
@@ -69,11 +68,11 @@ const AccordionItem = ({ title, content }: AccordionItemProps) => {
   );
 };
 
-const Accordion = ({ data }) => {
+const Accordion = ({ data }: { data: Menu[] }) => {
   return (
     <div className="w-full bg-white px-4 md:px-0">
       {data.map((item, index) => (
-        <AccordionItem key={index} title={item.title} content={item.content} />
+        <AccordionItem key={index} title={item.name} children={item.children} />
       ))}
     </div>
   );

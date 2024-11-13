@@ -30,75 +30,14 @@ const containerVariants = {
   },
 };
 
-const menuData = [
-  {
-    title: "정기권",
-    content: [
-      {
-        title: "이용현황",
-        content: "/ticket",
-      },
-      {
-        title: "신청목록",
-        content: "/ticket-request",
-      },
-      {
-        title: "신청하기",
-        content: "/ticket-request/new",
-      },
-    ],
-  },
-  {
-    title: "결제 / 환불",
-    content: [
-      {
-        title: "결제이력",
-        content: "/payment",
-        children: [
-          {
-            title: "결제상세",
-            content: "/payment/detail",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: "파트너",
-    content: [
-      {
-        title: "파트너상세",
-        content: "/partner",
-      },
-      {
-        title: "멤버목록",
-        content: "/partner-user",
-      },
-    ],
-  },
-];
-
-const dummyData = {
-  data: {
-    userName: "테스트",
-  },
-};
-
 const NavBar = () => {
   const { isSidebarOpen, setIsSidebarOpen, isDisplay, setIsDisplay } =
     useSidebar();
   const navigate = useNavigate();
   const containerControls = useAnimationControls();
-  const { signOut } = useAuth();
-  const { data } = dummyData;
+  const { signOut, menus, user } = useAuth();
   const width = useWindowWidth();
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useAuth();
-
-  const onSignOut = () => {
-    signOut();
-    navigate("/");
-  };
 
   useEffect(() => {
     if (width < 480) {
@@ -121,6 +60,14 @@ const NavBar = () => {
     }
   }, [isSidebarOpen]);
 
+  const onSignOut = () => {
+    signOut();
+    navigate("/");
+  };
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       {isDisplay ? (
@@ -160,9 +107,9 @@ const NavBar = () => {
             )}
           </div>
           {isSidebarOpen ? (
-            <Accordion data={menuData} />
+            <Accordion data={menus} />
           ) : (
-            <DropDown data={menuData} />
+            <DropDown data={menus} />
           )}
         </motion.nav>
       ) : (
@@ -170,12 +117,19 @@ const NavBar = () => {
           className={`flex bg-white justify-between z-10 p-5 fixed items-center top-0 h-[48px] w-full shadow`}
         >
           <img src={bizLogo} className="object-cover w-24" />
-          <div onClick={() => setIsOpen(!isOpen)}>
-            <HamburgerIcon />
+          <div className="flex gap-2 items-center">
+            <span onClick={handleToggle}>
+              <HamburgerIcon />
+            </span>
           </div>
           {isOpen && (
             <div className="fixed top-[48px] left-0 w-full">
-              <Accordion data={menuData} />
+              <Accordion data={menus} />
+              <div className={`py-3 bg-white px-4 md:px-0 flex justify-end`}>
+                <span onClick={onSignOut} className="cursor-pointer">
+                  <LogOutIcon />
+                </span>
+              </div>
             </div>
           )}
         </div>

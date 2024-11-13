@@ -25,7 +25,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
       >
         <span>{title}</span>
         <span className="text-slate-800 transition-transform duration-300">
-          {isOpen ? (
+          {!isOpen ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"

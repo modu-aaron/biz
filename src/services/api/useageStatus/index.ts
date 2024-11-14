@@ -4,11 +4,11 @@ import {
   MonthlyParkingUsersResDto,
 } from "./type";
 
-const getUseageStatus = async (
+const getMonthlyParkingUsers = async (
   params: MonthlyParkingUsersParamsReqDto
 ): Promise<MonthlyParkingUsersResDto> => {
   const { data } = await axios.get("/ticket", { params });
   return data;
 };
 
-export { getUseageStatus };
+export { getMonthlyParkingUsers };

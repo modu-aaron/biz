@@ -3,7 +3,7 @@ import BaseTitle from "../../components/shared/BaseTitle";
 import MainWrapper from "../../components/shared/MainWrapper";
 import SelectBox from "../../components/shared/SelectBox";
 import { useEffect, useState } from "react";
-import { getUseageStatus } from "../../services/api/useageStatus";
+import { getMonthlyParkingUsers } from "../../services/api/useageStatus";
 import ListTable from "../../components/shared/ListTable";
 import { MonthlyParkingUsersResDto } from "../../services/api/useageStatus/type";
 
@@ -14,7 +14,7 @@ const Ticket = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getUseageStatus({ offset: 0, limit: 10 });
+      const response = await getMonthlyParkingUsers({ offset: 0, limit: 10 });
       setData(response);
     };
     fetchData();
@@ -39,10 +39,20 @@ const Ticket = () => {
   };
 
   const headers = [
-    { value: "ptSeq", name: "주차권 번호", type: "link" },
+    { value: "ptSeq", name: "주차권 번호" },
     { value: "carNum", name: "차량번호" },
-    { value: "userName", name: "사용자 이름" },
-    { value: "extend", name: "연장 가능 여부" },
+    { value: "carModel", name: "차 모델명" },
+    { value: "parkingLotName", name: "주차장명" },
+    { value: "partnerTicketName", name: "주차권명" },
+    { value: "useStartDate", name: "이용시작일" },
+    { value: "useEndDate", name: "이용종료일" },
+    { value: "userName", name: "사용자명" },
+    { value: "userPhone", name: "사용자 연락처" },
+    { value: "creator", name: "담당자" },
+    { value: "status", name: "주차권 이용상태" },
+    { value: "remainingDays", name: "잔여일" },
+    { value: "extend", name: "연장" },
+    { value: "isAutoExtend", name: "자동연장" },
   ];
   const body = [
     {

@@ -1,12 +1,12 @@
 import { useForm, Controller } from "react-hook-form";
 
-const SelectBox = ({ name, label, options, control, className }) => {
+const SelectBox = ({ name, label, options, control }) => {
   return (
     <div className="max-w-sm">
       {label && (
         <label
           htmlFor={name}
-          className="block text-sm font-medium text-gray-700 mb-1"
+          className="block text-sm font-medium text-gray-700 mb-2"
         >
           {label}
         </label>
@@ -14,16 +14,11 @@ const SelectBox = ({ name, label, options, control, className }) => {
       <Controller
         name={name}
         control={control}
-        defaultValue=""
         render={({ field }) => (
           <select
             {...field}
             id={name}
-            className={`${
-              className
-                ? className
-                : 'border border-neutral-100 text-sm min-w-8 rounded-sm block py-2 pl-2"'
-            }`}
+            className="border w-full border-neutral-100 text-sm min-w-40 rounded-sm block py-2 pl-2"
           >
             {options.map((option) => (
               <option key={option.value} value={option.value}>

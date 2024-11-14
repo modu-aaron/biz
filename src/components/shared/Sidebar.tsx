@@ -92,7 +92,7 @@ const NavBar = () => {
           >
             <img
               className={`lg:w-20 lg:h-20 md:w-10 md:h-10 border-none rounded-full`}
-              src="https://img.freepik.com/free-psd/3d-illustration-bald-person_23-2149436183.jpg?t=st=1729943150~exp=1729946750~hmac=c8c0d8f36ed5fbf304c8e03da5ae93f6ade5b8a146220329f61306fa54534a4a&w=740"
+              src="https://ca.slack-edge.com/T04GJSZC2-U06DV3V3TL6-f19097d81964-512"
             />
             {isSidebarOpen && (
               <div className="flex py-4 items-center w-full justify-center relative">
@@ -110,6 +110,16 @@ const NavBar = () => {
             <Accordion data={menus} />
           ) : (
             <DropDown data={menus} />
+          )}
+          {!isSidebarOpen && (
+            <div className="flex py-4 absolute bottom-5 items-center justify-center w-full">
+              <button
+                className="p-1 rounded text-neutral-600"
+                onClick={onSignOut}
+              >
+                <LogOutIcon />
+              </button>
+            </div>
           )}
         </motion.nav>
       ) : (

@@ -59,7 +59,7 @@ const SignIn = () => {
                   defaultValue={""}
                   {...register("pw", { required: true })}
                 />
-                <button className="px-6 py-2 mt-3 bg-[#0099ff] text-white rounded-sm">
+                <button className="px-6 py-2 mt-3 bg-[#0078ff] text-white rounded-sm">
                   로그인
                 </button>
               </div>

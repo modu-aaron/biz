@@ -13,7 +13,7 @@ const MainWrapper = ({ children }: { children: ReactNode }) => {
       <ToastContainer />
       <NavBar />
       <section
-        className={`flex-1 flex-col w-full transition-all duration-300 px-6 
+        className={`flex-1 overflow-auto flex-col w-full transition-all duration-300 px-6 
   ml-0 mt-[48px] sm:mt-0 sm:py-3 sm:ml-20  md:ml-20 lg:ml-40`}
       >
         {children}

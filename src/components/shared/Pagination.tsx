@@ -69,14 +69,14 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           disabled={isPrevPageDisabled}
           onClick={handlePrevPage}
-          className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          className="disabled:bg-gray-50 disabled:text-gray-300 relative inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           이전
         </button>
         <button
           disabled={isNextPageDisabled}
           onClick={handleNextPage}
-          className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          className="disabled:bg-gray-50 disabled:text-gray-300 relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           다음
         </button>
@@ -98,7 +98,7 @@ const Pagination: React.FC<PaginationProps> = ({
             <button
               onClick={handlePrevPage}
               disabled={isPrevPageDisabled}
-              className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="disabled:bg-gray-50 disabled:text-gray-300 relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Previous</span>
               <svg
@@ -131,7 +131,7 @@ const Pagination: React.FC<PaginationProps> = ({
             <button
               onClick={handleNextPage}
               disabled={isNextPageDisabled}
-              className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="disabled:bg-gray-50 disabled:text-gray-300 relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Next</span>
               <svg

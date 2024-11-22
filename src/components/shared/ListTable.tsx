@@ -13,16 +13,54 @@ const ListTable = ({ headers, body, type = "row" }) => {
             className="text-center min-w-10 py-1 border border-gray-200 rounded-sm"
           />
         );
+      case "checkbox":
+        return (
+          <input
+            type="checkbox"
+            checked={cellData.value}
+            onChange={cellData.onChange}
+            className="text-center min-w-10 py-1 border border-gray-200 rounded-sm"
+          />
+        );
       case "link":
         return (
           <a className="text-[#0078ff]" href={`#${cellData.value}`}>
             {cellData.value}
           </a>
         );
+      case "button":
+        return (
+          <button
+            onClick={cellData.onClick}
+            className={`${
+              cellData.value ? "text-[#0078ff]" : "text-red-500"
+            } border px-4 py-1 rounded-sm`}
+          >
+            {cellData.value}
+          </button>
+        );
       case "string":
         return cellData.value;
       default:
         return cellData.value;
+    }
+  };
+
+  const renderHeader = (header) => {
+    const { value, name, checked } = header;
+
+    switch (value) {
+      case "checkbox":
+        return (
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={header.onChange}
+            className="text-center min-w-10 py-1 border border-gray-200 rounded-sm"
+          />
+        );
+      default:
+        return name;
     }
   };
 
@@ -46,7 +84,7 @@ const ListTable = ({ headers, body, type = "row" }) => {
                   scope="row"
                   className="px-4 py-3 text-center text-xs sm:text-sm font-semibold text-[#333]"
                 >
-                  {header.name}
+                  {renderHeader(header)}
                 </th>
               ))}
             </tr>

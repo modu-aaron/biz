@@ -5,58 +5,106 @@ import SelectBox from "../../components/shared/SelectBox";
 import { useEffect, useState } from "react";
 import { getMonthlyParkingUsers } from "../../services/api/useageStatus";
 import ListTable from "../../components/shared/ListTable";
-import { MonthlyParkingUsersResDto } from "../../services/api/useageStatus/type";
-import { text } from "stream/consumers";
+import {
+  MonthlyParkingUsersParamsReqDto,
+  MonthlyParkingUsersResDto,
+} from "../../services/api/useageStatus/type";
 import Pagination from "../../components/shared/Pagination";
 
 const Ticket = () => {
   const { control, register, handleSubmit, getValues } = useForm();
 
-  const [testValues, setTestValues] = useState<string[]>([]);
   const [data, setData] = useState<MonthlyParkingUsersResDto | null>(null);
+  const [currentPage, setCurrentPage] = useState({ value: 0, name: "1" });
+  const [totalCount, setTotalCount] = useState(0);
+  const [limit, setLimit] = useState(20);
+  const [isExtendable, setIsExtendable] = useState<boolean[]>([]);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [isAllSelected, setIsAllSelected] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getMonthlyParkingUsers({ offset: 0, limit: 20 });
+      const response = await getMonthlyParkingUsers({
+        offset: currentPage.value,
+        limit: limit,
+      });
+      setIsExtendable(response.results.map((user) => user.isAutoExtend));
+      setTotalCount(response.total);
+      setLimit(response.limit);
       setData(response);
-      if (response?.results) {
-        const initialTestValues = response.results.map(
-          (user) => user.creator.name || ""
-        );
-        setTestValues(initialTestValues);
-      }
     };
 
     fetchData();
-  }, []);
+  }, [currentPage, limit]);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     setSelectedRows([]);
+  //     setIsAllSelected(false);
+  //   }
+  // }, [selectedRows, data]);
 
   const searchKey = useWatch({
     control,
     name: "search.searchKey",
   });
 
-  const onSubmit = () => {
-    const values = getValues("search");
-    console.log(values);
-    // const payload = {
-    //   searchKey: data.searchKey,
-    //   searchWord: data.searchWord,
-    //   usageStatus: data.usageStatus,
-    //   remainingDays: data.remainingDays,
-    // };
-    // console.log("Payload:", payload);
-    // 여기에서 API 요청 또는 다른 데이터 처리 로직을 추가할 수 있습니다.
+  const formattedSearchOption = () => {
+    const key = getValues("search");
+    const { searchKey, searchWord, status, remainingDays } = key;
+    const params: MonthlyParkingUsersParamsReqDto = {
+      offset: currentPage.value,
+      limit: limit,
+    };
+    if (searchKey && searchWord)
+      params[searchKey as "carNum" | "ptSeq" | "userPhone"] = searchWord;
+    if (status) params.status = status;
+    if (remainingDays) params.remainingDays = remainingDays;
+    return params;
   };
 
-  const handleTestValueChange = (index: number, newValue: string) => {
-    setTestValues((prev) => {
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      setSelectedRows([]);
+    } else {
+      const allIds = data?.results.map((user) => user.ptSeq) || [];
+      setSelectedRows(allIds);
+    }
+    setIsAllSelected(!isAllSelected);
+  };
+
+  useEffect(() => {
+    console.log(selectedRows);
+  }, [selectedRows]);
+
+  const handleRowSelect = (ptSeq: number) => {
+    setSelectedRows((prev) =>
+      prev.includes(ptSeq)
+        ? prev.filter((id) => id !== ptSeq)
+        : [...prev, ptSeq]
+    );
+  };
+
+  const onSubmit = async () => {
+    const params = formattedSearchOption();
+    const data = await getMonthlyParkingUsers({
+      ...params,
+    });
+    setData(data);
+    setTotalCount(data.total);
+    setLimit(data.limit);
+  };
+
+  const handleExtendClick = (index: number) => {
+    //추후 api 연동 필요
+    const isOk = window.confirm("자동연장을 변경하시겠습니까?");
+    if (!isOk) return;
+    setIsExtendable((prev) => {
       const updated = [...prev];
-      updated[index] = newValue;
+      updated[index] = !updated[index];
       return updated;
     });
   };
-
-  const [currentPage, setCurrentPage] = useState({ value: 0, name: "1" });
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -65,6 +113,11 @@ const Ticket = () => {
   const generateTableBody = () => {
     if (!data) return [];
     const result = data.results.map((user, index) => ({
+      checkbox: {
+        value: selectedRows.includes(user.ptSeq),
+        type: "checkbox",
+        onChange: () => handleRowSelect(user.ptSeq),
+      },
       ptSeq: { value: user.ptSeq, type: "link" },
       carNum: { value: user.carNum, type: "string" },
       carModel: { value: user.carModel, type: "string" },
@@ -83,22 +136,23 @@ const Ticket = () => {
       creator: { value: user.creator.name, type: "string" },
       status: { value: user.status, type: "string" },
       remainingDays: { value: user.remainingDays, type: "string" },
-      extend: { value: user.extend.isAble ? "가능" : "불가능", type: "string" },
-      isAutoExtend: { value: user.isAutoExtend, type: "string" },
-      test: {
-        value: testValues[index],
-        type: "input",
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-          handleTestValueChange(index, e.target.value),
+      extend: {
+        value: user.extend.isAble ? "가능" : "불가능",
+        type: "string",
+      },
+      isAutoExtend: {
+        value: isExtendable[index] ? "Y" : "N",
+        type: "button",
+        onClick: () => handleExtendClick(index),
       },
     }));
-
     return result;
   };
 
-  generateTableBody();
+  const tableBody = generateTableBody();
 
   const headers = [
+    { value: "checkbox", checked: isAllSelected, onChange: handleSelectAll },
     { value: "ptSeq", name: "주차권 번호" },
     { value: "carNum", name: "차량번호" },
     { value: "carModel", name: "차 모델명" },
@@ -113,7 +167,6 @@ const Ticket = () => {
     { value: "remainingDays", name: "잔여일" },
     { value: "extend", name: "연장" },
     { value: "isAutoExtend", name: "자동연장" },
-    { value: "test", name: "테스트" },
   ];
 
   return (
@@ -185,16 +238,18 @@ const Ticket = () => {
             </div>
           </div>
         </form>
-        <ListTable headers={headers} body={generateTableBody()} />
+        <div className="w-full flex justify-end">
+          <button className="px-2 py-1 text-[12px] sm:px-3 sm:py-2 rounded-sm sm:text-sm border">
+            선택건 연장결제
+          </button>
+        </div>
+        <ListTable headers={headers} body={tableBody} />
         <Pagination
           currPage={currentPage}
-          totalCount={48}
-          limit={20}
+          totalCount={totalCount}
+          limit={limit}
           onPageChange={handlePageChange}
         />
-        <p>
-          현재 페이지: {currentPage.name} (Value: {currentPage.value})
-        </p>
       </div>
     </MainWrapper>
   );

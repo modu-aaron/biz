@@ -10,8 +10,8 @@ const Spinner = () => {
           fontSize: "0px",
           top: "50%",
           left: "50%",
-          width: "20px",
-          height: "20px",
+          width: "10px",
+          height: "10px",
           transform: "translate(-50%, -50%)",
         }}
       />

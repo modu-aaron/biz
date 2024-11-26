@@ -73,9 +73,9 @@ const Ticket = () => {
     setIsAllSelected(!isAllSelected);
   };
 
-  useEffect(() => {
-    console.log(selectedRows);
-  }, [selectedRows]);
+  // useEffect(() => {
+  //   console.log(selectedRows);
+  // }, [selectedRows]);
 
   const handleRowSelect = (ptSeq: number) => {
     setSelectedRows((prev) =>
@@ -118,7 +118,7 @@ const Ticket = () => {
         type: "checkbox",
         onChange: () => handleRowSelect(user.ptSeq),
       },
-      ptSeq: { value: user.ptSeq, type: "link" },
+      ptSeq: { value: user.ptSeq, type: "string" },
       carNum: { value: user.carNum, type: "string" },
       carModel: { value: user.carModel, type: "string" },
       parkingLotName: {

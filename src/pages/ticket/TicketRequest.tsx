@@ -37,13 +37,6 @@ const TicketRequest = () => {
     fetchData();
   }, [currentPage, limit]);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setSelectedRows([]);
-  //     setIsAllSelected(false);
-  //   }
-  // }, [selectedRows, data]);
-
   const searchKey = useWatch({
     control,
     name: "search.searchKey",
@@ -59,7 +52,7 @@ const TicketRequest = () => {
     if (searchKey && searchWord)
       params[searchKey as "carNum" | "ptSeq" | "userPhone"] = searchWord;
     if (status) params.status = status;
-    if (puSeq) params.puSeq = puSeq;
+    if (puSeq !== "전체") params.puSeq = puSeq;
     return params;
   };
 

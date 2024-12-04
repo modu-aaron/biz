@@ -127,35 +127,37 @@ const Payment = () => {
   ];
 
   const handleClick = (value: number | null) => {
-    setDate(getSearchRange(value));
+    const [start, end] = getSearchRange(value);
+    setDate([start, end]);
   };
 
-  const getSearchRange = (searchRange) => {
-    let to = today;
-    let from = today;
+  const getSearchRange = (searchRange: number | null) => {
+    let to = format(new Date(), DateFormat.DAY_YYYY_MM_DD_DASH); // 오늘
+    let from = "";
+
     switch (searchRange) {
-      case null:
+      case null: // 전체 기간
         from = "";
         to = "";
         break;
-      case 7:
+      case 1: // 오늘
+        from = to;
+        break;
+      case 7: // 1주일
         from = format(subDays(new Date(), 6), DateFormat.DAY_YYYY_MM_DD_DASH);
         break;
-      case 30:
-        from = format(
-          addDays(subMonths(new Date(), 1), 1),
-          DateFormat.DAY_YYYY_MM_DD_DASH
-        );
+      case 30: // 1개월
+        from = format(subMonths(new Date(), 1), DateFormat.DAY_YYYY_MM_DD_DASH);
         break;
-      case 90:
-        from = format(
-          addDays(subMonths(new Date(), 3), 1),
-          DateFormat.DAY_YYYY_MM_DD_DASH
-        );
+      case 90: // 3개월
+        from = format(subMonths(new Date(), 3), DateFormat.DAY_YYYY_MM_DD_DASH);
+        break;
     }
+
     return [from, to];
   };
 
+  console.log(date);
   const buttons = [
     {
       text: "전체",
@@ -194,25 +196,14 @@ const Payment = () => {
                 <div className="flex gap-2 w-full justify-center sm:justify-normal">
                   <ButtonGroup buttons={buttons} />
                   <DatePicker
-                    selected={new Date()}
-                    onChange={(date) => {
-                      console.log(date);
+                    selectsRange
+                    startDate={date[0] ? new Date(date[0]) : undefined}
+                    endDate={date[1] ? new Date(date[1]) : undefined}
+                    onChange={(dates) => {
+                      console.log(dates);
                     }}
-                    // startDate={}
-                    // endDate={}
                     dateFormat={DateFormat.DAY_YYYY_MM_DD_DASH}
-                    isClearable
                   />
-                  {/* <DatePicker
-                    dateFormat={DateFormat.DAY_YYYY_MM_DD_DASH}
-                    selected={new Date(date[0])}
-                    // onChange={(date) => {
-                    //   setDate([
-                    //     format(date as Date, DateFormat.DAY_YYYY_MM_DD_DASH),
-                    //     date[1],
-                    //   ]);
-                    // }}
-                  /> */}
                   {/* <SelectBox
                     name="search.searchKey"
                     label={null}

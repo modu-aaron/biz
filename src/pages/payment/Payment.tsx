@@ -14,6 +14,7 @@ import ButtonGroup from "../../components/shared/ButtonGroup";
 import { convertToDate, today } from "../../utils/date";
 import { DateFormat } from "../../enums/date";
 import { addDays, format, subDays, subMonths } from "date-fns";
+import DatePicker from "react-datepicker";
 
 const Payment = () => {
   const { control, register, handleSubmit, getValues } = useForm();
@@ -25,6 +26,7 @@ const Payment = () => {
   const [currentPage, setCurrentPage] = useState({ value: 0, name: "1" });
   const [totalCount, setTotalCount] = useState(0);
   const [limit, setLimit] = useState(20);
+  const [date, setDate] = useState(["", ""]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -124,8 +126,6 @@ const Payment = () => {
     { value: "receipt", name: "영수증 보기" },
   ];
 
-  const [date, setDate] = useState(["", ""]);
-
   const handleClick = (value: number | null) => {
     setDate(getSearchRange(value));
   };
@@ -157,11 +157,26 @@ const Payment = () => {
   };
 
   const buttons = [
-    { text: "전체", value: null, onClick: () => handleClick(null) },
-    { text: "오늘", value: 1, onClick: () => handleClick(1) },
-    { text: "1주일", value: 7, onClick: () => handleClick(7) },
-    { text: "1개월", value: 30, onClick: () => handleClick(30) },
-    { text: "3개월", value: 90, onClick: () => handleClick(90) },
+    {
+      text: "전체",
+      value: null,
+      onClick: () => handleClick(null),
+      isActive: false,
+    },
+    { text: "오늘", value: 1, onClick: () => handleClick(1), isActive: false },
+    { text: "1주일", value: 7, onClick: () => handleClick(7), isActive: false },
+    {
+      text: "1개월",
+      value: 30,
+      onClick: () => handleClick(30),
+      isActive: false,
+    },
+    {
+      text: "3개월",
+      value: 90,
+      onClick: () => handleClick(90),
+      isActive: false,
+    },
   ];
 
   return (
@@ -178,6 +193,26 @@ const Payment = () => {
                 <p className="text-sm whitespace-nowrap">조회기간</p>
                 <div className="flex gap-2 w-full justify-center sm:justify-normal">
                   <ButtonGroup buttons={buttons} />
+                  <DatePicker
+                    selected={new Date()}
+                    onChange={(date) => {
+                      console.log(date);
+                    }}
+                    // startDate={}
+                    // endDate={}
+                    dateFormat={DateFormat.DAY_YYYY_MM_DD_DASH}
+                    isClearable
+                  />
+                  {/* <DatePicker
+                    dateFormat={DateFormat.DAY_YYYY_MM_DD_DASH}
+                    selected={new Date(date[0])}
+                    // onChange={(date) => {
+                    //   setDate([
+                    //     format(date as Date, DateFormat.DAY_YYYY_MM_DD_DASH),
+                    //     date[1],
+                    //   ]);
+                    // }}
+                  /> */}
                   {/* <SelectBox
                     name="search.searchKey"
                     label={null}

@@ -156,8 +156,6 @@ const Payment = () => {
     return [from, to];
   };
 
-  console.log(date);
-
   const buttons = [
     { text: "전체", value: null, onClick: () => handleClick(null) },
     { text: "오늘", value: 1, onClick: () => handleClick(1) },

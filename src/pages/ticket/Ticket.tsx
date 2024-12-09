@@ -10,6 +10,11 @@ import {
   MonthlyParkingUsersResDto,
 } from "../../services/api/useageStatus/type";
 import Pagination from "../../components/shared/Pagination";
+import { getStatusByCode } from "../../utils/date";
+import {
+  MonthlyParkingUseStatus,
+  MonthlyParkingUseStatusCode,
+} from "../../enums";
 
 const Ticket = () => {
   const { control, register, handleSubmit, getValues } = useForm();
@@ -134,7 +139,14 @@ const Ticket = () => {
       userName: { value: user.userName, type: "string" },
       userPhone: { value: user.userPhone, type: "string" },
       creator: { value: user.creator.name, type: "string" },
-      status: { value: user.status, type: "string" },
+      status: {
+        value: getStatusByCode(
+          user.status,
+          MonthlyParkingUseStatusCode,
+          MonthlyParkingUseStatus
+        ),
+        type: "string",
+      },
       remainingDays: { value: user.remainingDays, type: "string" },
       extend: {
         value: user.extend.isAble ? "가능" : "불가능",

@@ -1,4 +1,7 @@
-import type { PaymentCancelDto, PaymentOrderDto } from "./payment.ts";
+import type {
+  PaymentCancelDto,
+  PaymentOrderDto,
+} from "../services/api/payment/payment.dto";
 import type {
   MonthlyParkingCreatorTypeCode,
   MonthlyParkingRequestStatusCode,

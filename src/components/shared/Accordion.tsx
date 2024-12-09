@@ -1,23 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu } from "../../services/api/auth/type";
+import storage, { LocalStorageKey } from "../../lib/storage";
+import { toast } from "react-toastify";
 
 interface AccordionItemProps {
   title: string;
   children?: Menu[];
+  isOpen: boolean;
+  toggleAccordion: () => void;
 }
 
-const AccordionItem = ({ title, children }: AccordionItemProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
-
+const AccordionItem = ({
+  title,
+  children,
+  isOpen,
+  toggleAccordion,
+}: AccordionItemProps) => {
   return (
     <div
       className={`${!isOpen && "border-b"} ${
         title === "파트너" && "border-none"
-      }  border-slate-200 w-full`}
+      } border-slate-200 w-full`}
     >
       <button
         onClick={toggleAccordion}
@@ -72,10 +75,42 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
 };
 
 const Accordion = ({ data }: { data: Menu[] }) => {
+  const [openStates, setOpenStates] = useState<boolean[]>(
+    data.map(() => false)
+  );
+
+  const toggleAccordion = (index: number) => {
+    const updatedStates = [...openStates];
+    updatedStates[index] = !updatedStates[index];
+    setOpenStates(updatedStates);
+    storage.set(LocalStorageKey.IS_OPEN, updatedStates);
+  };
+
+  useEffect(() => {
+    const storedStates = storage.get(LocalStorageKey.IS_OPEN);
+    if (storedStates) {
+      try {
+        const states: boolean[] = storedStates;
+        if (Array.isArray(states)) {
+          setOpenStates(states);
+        }
+      } catch (error: unknown) {
+        console.log(error);
+        toast.error(`메뉴를 불러오는데 실패하였습니다.잠시 후 재시도해주세요.`);
+      }
+    }
+  }, []);
+
   return (
     <div className="w-full bg-white px-5 md:px-0 text-[14px]">
       {data.map((item, index) => (
-        <AccordionItem key={index} title={item.name} children={item.children} />
+        <AccordionItem
+          key={index}
+          title={item.name}
+          children={item.children}
+          isOpen={openStates[index]}
+          toggleAccordion={() => toggleAccordion(index)}
+        />
       ))}
     </div>
   );

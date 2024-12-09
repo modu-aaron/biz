@@ -78,3 +78,16 @@
     gap: 0.25rem;
   }
 }
+
+.react-datepicker__input-container {
+  position: relative;
+  display: flex !important;
+  width: 100%;
+  align-items: center;
+}
+
+.react-datepicker__input-container > input {
+  min-width: 240px;
+  padding-left: 32px !important;
+  font-size: 0.9rem;
+}

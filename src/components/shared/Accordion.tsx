@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu } from "../../services/api/auth/type";
 import storage, { LocalStorageKey } from "../../lib/storage";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 
 interface AccordionItemProps {
   title: string;
@@ -16,6 +17,7 @@ const AccordionItem = ({
   isOpen,
   toggleAccordion,
 }: AccordionItemProps) => {
+  const location = useLocation();
   return (
     <div
       className={`${!isOpen && "border-b"} ${
@@ -65,7 +67,14 @@ const AccordionItem = ({
         <div className="pb-5 text-sm text-slate-500">
           {children?.map((item, index) => (
             <div className="py-2" key={index}>
-              <a href={item.uri ? item.uri : ""}>{item.name}</a>
+              <a
+                className={`${
+                  location.pathname === item.uri ? "text-[#0078ff]" : ""
+                }`}
+                href={item.uri ? item.uri : ""}
+              >
+                {item.name}
+              </a>
             </div>
           ))}
         </div>

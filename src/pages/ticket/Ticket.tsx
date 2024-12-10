@@ -147,14 +147,16 @@ const Ticket = () => {
         ),
         type: "string",
       },
-      remainingDays: { value: user.remainingDays, type: "string" },
+      remainingDays: { value: `${user.remainingDays}일`, type: "string" },
       extend: {
-        value: user.extend.isAble ? "가능" : "불가능",
+        value: user.extend.isAble ? "가능" : "불가",
         type: "string",
+        className: user.extend.isAble ? "text-[#0078ff]" : "text-red-500",
       },
       isAutoExtend: {
         value: isExtendable[index] ? "Y" : "N",
         type: "button",
+        className: isExtendable[index] ? "text-[#0078ff]" : "text-red-500",
         onClick: () => handleExtendClick(index),
       },
     }));

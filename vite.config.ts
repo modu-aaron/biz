@@ -1,5 +1,6 @@
 import dns from "dns";
 import fs from "fs";
+import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VITE_ENV } from "./src/environment";
@@ -38,6 +39,11 @@ export default defineConfig({
         cookieDomainRewrite: "localhost",
         rewrite: (path: string) => path.replace("/fake_api_path", ""),
       },
+    },
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"), // src 경로를 @로 매핑
     },
   },
 });

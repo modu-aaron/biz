@@ -10,7 +10,7 @@ const ListTable = ({ headers, body, type = "row" }) => {
             type="text"
             value={cellData.value}
             onChange={cellData.onChange}
-            className="text-center min-w-10 py-1 border border-gray-200 rounded-sm"
+            className={`text-center min-w-10 py-1 border border-gray-200 rounded-sm`}
           />
         );
       case "checkbox":
@@ -32,15 +32,13 @@ const ListTable = ({ headers, body, type = "row" }) => {
         return (
           <button
             onClick={cellData.onClick}
-            className={`${
-              cellData.value ? "text-[#0078ff]" : "text-red-500"
-            } border px-4 py-1 rounded-sm`}
+            className={`${cellData.className} border px-4 py-1 rounded-sm`}
           >
             {cellData.value}
           </button>
         );
       case "string":
-        return cellData.value;
+        return <div className={`${cellData.className}`}>{cellData.value}</div>;
       default:
         return cellData.value;
     }

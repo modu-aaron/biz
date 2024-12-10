@@ -11,6 +11,14 @@ import {
   MonthlyParkingRequestParamsReqDto,
 } from "../../services/api/ticketRequest/type";
 import { getMonthlyParkingRequests } from "../../services/api/ticketRequest";
+import { getStatusByCode, convertToDate } from "../../utils/date";
+import {
+  MonthlyParkingRequestTypeCode,
+  MonthlyParkingRequestType,
+  MonthlyParkingRequestStatusCode,
+  MonthlyParkingRequestStatus,
+  DateFormat,
+} from "../../enums";
 
 const TicketRequest = () => {
   const { control, register, handleSubmit, getValues } = useForm();
@@ -74,7 +82,11 @@ const TicketRequest = () => {
     if (!data) return [];
     const result = data.results.map((data, index) => ({
       type: {
-        value: data.type,
+        value: getStatusByCode(
+          data.type,
+          MonthlyParkingRequestTypeCode,
+          MonthlyParkingRequestType
+        ),
         type: "string",
       },
       ptSeq: { value: data.ptSeq, type: "string" },
@@ -99,12 +111,22 @@ const TicketRequest = () => {
       carModel: { value: data.carModel, type: "string" },
       useStartDate: { value: data.useStartDate, type: "string" },
       useEndDate: { value: data.useEndDate, type: "string" },
-      createdAt: { value: data.createdAt, type: "string" },
+      createdAt: {
+        value: convertToDate(data.createdAt, DateFormat.DAY_YYYY_MM_DD_DASH),
+        type: "string",
+      },
       creator: {
         value: data.partnerTicket.creator.name,
         type: "string",
       },
-      status: { value: data.status, type: "string" },
+      status: {
+        value: getStatusByCode(
+          data.status,
+          MonthlyParkingRequestStatusCode,
+          MonthlyParkingRequestStatus
+        ),
+        type: "string",
+      },
     }));
     return result;
   };

@@ -1,24 +1,24 @@
 import { useForm, useWatch } from "react-hook-form";
-import BaseTitle from "../../components/shared/BaseTitle";
-import MainWrapper from "../../components/shared/MainWrapper";
-import SelectBox from "../../components/shared/SelectBox";
+import BaseTitle from "@/components/shared/BaseTitle";
+import MainWrapper from "@/components/shared/MainWrapper";
+import SelectBox from "@/components/shared/SelectBox";
 import { useEffect, useState } from "react";
-import ListTable from "../../components/shared/ListTable";
-import Pagination from "../../components/shared/Pagination";
-import { useAuth } from "../../store/useAuth";
+import ListTable from "@/components/shared/ListTable";
+import Pagination from "@/components/shared/Pagination";
+import { useAuth } from "@/store/useAuth";
 import {
   MonthlyParkingRequestListsResDto,
   MonthlyParkingRequestParamsReqDto,
-} from "../../services/api/ticketRequest/type";
-import { getMonthlyParkingRequests } from "../../services/api/ticketRequest";
-import { getStatusByCode, convertToDate } from "../../utils/date";
+} from "@/services/api/ticketRequest/type";
+import { getMonthlyParkingRequests } from "@/services/api/ticketRequest";
+import { getStatusByCode, convertToDate } from "@/utils/date";
 import {
   MonthlyParkingRequestTypeCode,
   MonthlyParkingRequestType,
   MonthlyParkingRequestStatusCode,
   MonthlyParkingRequestStatus,
   DateFormat,
-} from "../../enums";
+} from "@/enums";
 
 const TicketRequest = () => {
   const { control, register, handleSubmit, getValues } = useForm();

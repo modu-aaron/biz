@@ -1,12 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "../App";
-import Partner from "../pages/partner/Partner";
-import Payment from "../pages/payment/Payment";
-import SignIn from "../pages/sign/SignIn";
-import NotFound from "../pages/NotFound";
-import Ticket from "../pages/ticket/Ticket";
-import AuthRoute from "./AuthRoute";
-import TicketRequest from "../pages/ticket/TicketRequest";
+import App from "@/App";
+import Partner from "@/pages/partner/Partner";
+import Payment from "@/pages/payment/Payment";
+import SignIn from "@/pages/sign/SignIn";
+import NotFound from "@/pages/NotFound";
+import Ticket from "@/pages/ticket/Ticket";
+import AuthRoute from "@/router/AuthRoute";
+import TicketRequest from "@/pages/ticket/TicketRequest";
+import TicketRequestNew from "@/pages/ticket/TicketRequestNew";
+import PartnerUser from "@/pages/partner/PartnerUser";
 
 const Router = () => {
   return (
@@ -31,6 +33,14 @@ const Router = () => {
           }
         />
         <Route
+          path="/partner-user"
+          element={
+            <AuthRoute>
+              <PartnerUser />
+            </AuthRoute>
+          }
+        />
+        <Route
           path="/ticket"
           element={
             <AuthRoute>
@@ -43,6 +53,14 @@ const Router = () => {
           element={
             <AuthRoute>
               <TicketRequest />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/ticket-request/new"
+          element={
+            <AuthRoute>
+              <TicketRequestNew />
             </AuthRoute>
           }
         />

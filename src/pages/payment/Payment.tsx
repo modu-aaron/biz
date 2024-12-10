@@ -1,24 +1,24 @@
 import { ko } from "date-fns/locale";
 import { MdOutlineCalendarToday } from "react-icons/md";
 import { useEffect, useState } from "react";
-import BaseTitle from "../../components/shared/BaseTitle";
-import MainWrapper from "../../components/shared/MainWrapper";
-import Pagination from "../../components/shared/Pagination";
-import ButtonGroup from "../../components/shared/ButtonGroup";
+import BaseTitle from "@/components/shared/BaseTitle";
+import MainWrapper from "@/components/shared/MainWrapper";
+import Pagination from "@/components/shared/Pagination";
+import ButtonGroup from "@/components/shared/ButtonGroup";
 import {
   DateFormat,
   PaymentMethod,
   PaymentMethodCode,
   PaymentStatus,
   PaymentStatusCode,
-} from "../../enums";
+} from "@/enums";
 import { subDays, subMonths, format } from "date-fns";
 import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
 import { PaymentsListDto } from "@/services/api/payment/payment.dto";
-import paymentService from "../../services/api/payment/index";
-import ListTable from "../../components/shared/ListTable";
-import { convertToDate, getStatusByCode } from "../../utils/date";
+import paymentService from "@/services/api/payment/index";
+import ListTable from "@/components/shared/ListTable";
+import { convertToDate, getStatusByCode } from "@/utils/date";
 
 const Payment = () => {
   const { handleSubmit } = useForm();

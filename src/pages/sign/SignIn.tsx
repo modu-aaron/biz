@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import bizLogo from "../../assets/images/biz-logo.png";
-import { useSpinner } from "../../store/useSpinner";
-import Spinner from "../../components/shared/Spinner";
+import bizLogo from "@/assets/images/biz-logo.png";
+import { useSpinner } from "@/store/useSpinner";
+import Spinner from "@/components/shared/Spinner";
 import { toast } from "react-toastify";
-import { useAuth } from "../../store/useAuth";
+import { useAuth } from "@/store/useAuth";
 
 const SignIn = () => {
   const { handleSubmit, register, watch } = useForm();

@@ -1,20 +1,17 @@
 import { useForm, useWatch } from "react-hook-form";
-import BaseTitle from "../../components/shared/BaseTitle";
-import MainWrapper from "../../components/shared/MainWrapper";
-import SelectBox from "../../components/shared/SelectBox";
+import BaseTitle from "@/components/shared/BaseTitle";
+import MainWrapper from "@/components/shared/MainWrapper";
+import SelectBox from "@/components/shared/SelectBox";
 import { useEffect, useState } from "react";
-import { getMonthlyParkingUsers } from "../../services/api/useageStatus";
-import ListTable from "../../components/shared/ListTable";
+import { getMonthlyParkingUsers } from "@/services/api/useageStatus";
+import ListTable from "@/components/shared/ListTable";
 import {
   MonthlyParkingUsersParamsReqDto,
   MonthlyParkingUsersResDto,
-} from "../../services/api/useageStatus/type";
-import Pagination from "../../components/shared/Pagination";
-import { getStatusByCode } from "../../utils/date";
-import {
-  MonthlyParkingUseStatus,
-  MonthlyParkingUseStatusCode,
-} from "../../enums";
+} from "@/services/api/useageStatus/type";
+import Pagination from "@/components/shared/Pagination";
+import { getStatusByCode } from "@/utils/date";
+import { MonthlyParkingUseStatus, MonthlyParkingUseStatusCode } from "@/enums";
 
 const Ticket = () => {
   const { control, register, handleSubmit, getValues } = useForm();

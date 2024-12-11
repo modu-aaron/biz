@@ -3,12 +3,12 @@ import BaseTitle from "@/components/shared/BaseTitle";
 import MainWrapper from "@/components/shared/MainWrapper";
 import SelectBox from "@/components/shared/SelectBox";
 import { useEffect, useState } from "react";
-import { getMonthlyParkingUsers } from "@/services/api/useageStatus";
+import ticketService from "@/services/api/ticket";
 import ListTable from "@/components/shared/ListTable";
 import {
   MonthlyParkingUsersParamsReqDto,
   MonthlyParkingUsersResDto,
-} from "@/services/api/useageStatus/type";
+} from "@/services/api/ticket/ticket.dto";
 import Pagination from "@/components/shared/Pagination";
 import { getStatusByCode } from "@/utils/date";
 import { MonthlyParkingUseStatus, MonthlyParkingUseStatusCode } from "@/enums";
@@ -26,7 +26,7 @@ const Ticket = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getMonthlyParkingUsers({
+      const response = await ticketService.getMonthlyParkingUsers({
         offset: currentPage.value,
         limit: limit,
       });
@@ -89,7 +89,7 @@ const Ticket = () => {
 
   const onSubmit = async () => {
     const params = formattedSearchOption();
-    const data = await getMonthlyParkingUsers({
+    const data = await ticketService.getMonthlyParkingUsers({
       ...params,
     });
     setData(data);

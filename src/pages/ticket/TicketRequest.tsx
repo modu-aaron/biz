@@ -9,8 +9,8 @@ import { useAuth } from "@/store/useAuth";
 import {
   MonthlyParkingRequestListsResDto,
   MonthlyParkingRequestParamsReqDto,
-} from "@/services/api/ticketRequest/type";
-import { getMonthlyParkingRequests } from "@/services/api/ticketRequest";
+} from "@/services/api/ticket/ticket.dto";
+import ticketService from "@/services/api/ticket";
 import { getStatusByCode, convertToDate } from "@/utils/date";
 import {
   MonthlyParkingRequestTypeCode,
@@ -33,7 +33,7 @@ const TicketRequest = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getMonthlyParkingRequests({
+      const response = await ticketService.getMonthlyParkingRequests({
         offset: currentPage.value,
         limit: limit,
       });
@@ -66,7 +66,7 @@ const TicketRequest = () => {
 
   const onSubmit = async () => {
     const params = formattedSearchOption();
-    const data = await getMonthlyParkingRequests({
+    const data = await ticketService.getMonthlyParkingRequests({
       ...params,
     });
     setData(data);

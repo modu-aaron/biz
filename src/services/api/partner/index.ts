@@ -1,7 +1,14 @@
-import type { UpdateUserPayloadDto, AddCardPayloadDto } from "./partner.dto";
-import { UserDto, PartnerDto, PartnerMemberDto } from "./partner.dto";
-import axios from "../../axios/index";
+import axios from "@/services/axios/index";
 import { plainToInstance } from "class-transformer";
+import type {
+  UpdateUserPayloadDto,
+  AddCardPayloadDto,
+} from "@/services/api/partner/partner.dto";
+import {
+  UserDto,
+  PartnerDto,
+  PartnerMemberDto,
+} from "@/services/api/partner/partner.dto";
 
 /**
  * 소속 파트너 정보 조회

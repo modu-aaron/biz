@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { Paginated } from "../dto/common.dto";
+import { Paginated } from "@/services/api/dto/common.dto";
 
 export class UserDto {
   puSeq!: number;

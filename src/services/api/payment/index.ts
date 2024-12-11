@@ -1,11 +1,14 @@
-import axios from "../../axios";
+import axios from "@/services/axios";
+import { plainToInstance } from "class-transformer";
 import type {
   PaymentPathVar,
   PaymentParamsDto,
   RequestExcelStatusPayload,
-} from "./payment.dto";
-import { PaymentDetailDto, PaymentsListDto } from "./payment.dto";
-import { plainToInstance } from "class-transformer";
+} from "@/services/api/payment/payment.dto";
+import {
+  PaymentDetailDto,
+  PaymentsListDto,
+} from "@/services/api/payment/payment.dto";
 
 /**
  * 결제 목록

@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { Paginated } from "../../api/dto/common.dto";
+import { Paginated } from "@/services/api/dto/common.dto";
 import type {
   PartnerTicketTypeCode,
   PaymentMethodCode,

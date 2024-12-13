@@ -2,7 +2,7 @@ import { ko } from "date-fns/locale";
 import { MdOutlineCalendarToday } from "react-icons/md";
 import { useEffect, useState } from "react";
 import BaseTitle from "@/components/shared/BaseTitle";
-import MainWrapper from "@/components/shared/MainWrapper";
+import MainWrapper from "@/components/shared/layout/MainWrapper";
 import Pagination from "@/components/shared/Pagination";
 import ButtonGroup from "@/components/shared/ButtonGroup";
 import {

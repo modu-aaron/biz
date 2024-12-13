@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSpinner } from "../../store/useSpinner";
-import Spinner from "./Spinner";
-import NavBar from "../../components/shared/Sidebar";
+import { useSpinner } from "@/store/useSpinner";
+import Spinner from "@/components/shared/Spinner";
+import NavBar from "@/components/shared/layout/Sidebar";
 
 const MainWrapper = ({ children }: { children: ReactNode }) => {
   const { isSpinnerOpen } = useSpinner();

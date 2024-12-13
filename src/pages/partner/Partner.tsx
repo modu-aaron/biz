@@ -1,5 +1,5 @@
 import BaseTitle from "@/components/shared/BaseTitle";
-import MainWrapper from "@/components/shared/MainWrapper";
+import MainWrapper from "@/components/shared/layout/MainWrapper";
 import { useEffect, useState } from "react";
 import PartnerService from "@/services/api/partner";
 import { PartnerDto } from "@/services/api/partner/partner.dto";

@@ -1,15 +1,15 @@
 import { motion, useAnimationControls } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useSidebar } from "../../store/useSidebar";
-import bizLogo from "../../assets/images/biz-logo.png";
-import FaceFrown from "../../assets/FaceFrown";
-import Accordion from "./Accordion";
-import DropDown from "./DropDown";
-import LogOutIcon from "../../assets/LogOutIcon";
+import { useSidebar } from "@/store/useSidebar";
+import bizLogo from "@/assets/images/biz-logo.png";
+import FaceFrown from "@/assets/FaceFrown";
+import Accordion from "@/components/shared/Accordion";
+import DropDown from "@/components/shared/DropDown";
+import { useAuth } from "@/store/useAuth";
+import useWindowWidth from "@/hooks/useWindowWidth";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { IoLogOutOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../store/useAuth";
-import useWindowWidth from "../../hooks/useWindowWidth";
-import HamburgerIcon from "../../assets/HamburgerIcon";
 
 const containerVariants = {
   open: {
@@ -31,8 +31,14 @@ const containerVariants = {
 };
 
 const NavBar = () => {
-  const { isSidebarOpen, setIsSidebarOpen, isDisplay, setIsDisplay } =
-    useSidebar();
+  const {
+    isSidebarOpen,
+    setIsSidebarOpen,
+    isDisplay,
+    setIsDisplay,
+    isInitialized,
+    initializeSidebar,
+  } = useSidebar();
   const navigate = useNavigate();
   const containerControls = useAnimationControls();
   const { signOut, menus, user } = useAuth();
@@ -50,6 +56,7 @@ const NavBar = () => {
     if (width >= 1024) {
       setIsSidebarOpen(true);
     }
+    initializeSidebar();
   }, [width]);
 
   useEffect(() => {
@@ -68,6 +75,11 @@ const NavBar = () => {
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
+
+  if (!isInitialized) {
+    return null;
+  }
+
   return (
     <>
       {isDisplay ? (
@@ -101,7 +113,7 @@ const NavBar = () => {
                   className="p-1 rounded absolute right-0 text-neutral-600"
                   onClick={onSignOut}
                 >
-                  <LogOutIcon />
+                  <IoLogOutOutline />
                 </button>
               </div>
             )}
@@ -117,7 +129,7 @@ const NavBar = () => {
                 className="p-1 rounded text-neutral-600"
                 onClick={onSignOut}
               >
-                <LogOutIcon />
+                <IoLogOutOutline />
               </button>
             </div>
           )}
@@ -129,7 +141,7 @@ const NavBar = () => {
           <img src={bizLogo} className="object-cover w-24" />
           <div className="flex gap-2 items-center">
             <span onClick={handleToggle}>
-              <HamburgerIcon />
+              <RxHamburgerMenu />
             </span>
           </div>
           {isOpen && (

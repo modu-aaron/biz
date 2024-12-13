@@ -2,7 +2,7 @@ import { motion, useAnimationControls } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useSidebar } from "@/store/useSidebar";
 import bizLogo from "@/assets/images/biz-logo.png";
-import FaceFrown from "@/assets/FaceFrown";
+import bizSmallLogo from "@/assets/images/biz-s-logo.png";
 import Accordion from "@/components/shared/Accordion";
 import DropDown from "@/components/shared/DropDown";
 import { useAuth } from "@/store/useAuth";
@@ -93,7 +93,7 @@ const NavBar = () => {
             {isSidebarOpen ? (
               <img src={bizLogo} className="object-cover" />
             ) : (
-              <FaceFrown />
+              <img src={bizSmallLogo} className="object-cover" />
             )}
           </div>
 
@@ -113,7 +113,7 @@ const NavBar = () => {
                   className="p-1 rounded absolute right-0 text-neutral-600"
                   onClick={onSignOut}
                 >
-                  <IoLogOutOutline />
+                  <IoLogOutOutline size={20} />
                 </button>
               </div>
             )}
@@ -129,7 +129,7 @@ const NavBar = () => {
                 className="p-1 rounded text-neutral-600"
                 onClick={onSignOut}
               >
-                <IoLogOutOutline />
+                <IoLogOutOutline size={24} />
               </button>
             </div>
           )}

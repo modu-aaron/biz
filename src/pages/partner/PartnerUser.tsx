@@ -72,13 +72,15 @@ const PartnerUser = () => {
   return (
     <MainWrapper>
       <BaseTitle text="멤버목록" />
-      <ListTable headers={headers} body={tableBody} />
-      <Pagination
-        currPage={currentPage}
-        totalCount={totalCount}
-        limit={limit}
-        onPageChange={handlePageChange}
-      />
+      <div className="sm:p-8 md:p-16">
+        <ListTable headers={headers} body={tableBody} />
+        <Pagination
+          currPage={currentPage}
+          totalCount={totalCount}
+          limit={limit}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </MainWrapper>
   );
 };

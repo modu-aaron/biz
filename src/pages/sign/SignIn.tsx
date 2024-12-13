@@ -41,7 +41,7 @@ const SignIn = () => {
           <div className="h-full relative">
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2"
+              className="absolute w-2/3 top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2"
             >
               <div className="flex flex-col gap-2">
                 <img className="mb-4" src={bizLogo} />

@@ -1,3 +1,5 @@
+import { Company } from "@/types/payment";
+
 export enum SettlementReportRouteName {
   SIGN_IN = "SettlementUserAuthorization",
   REPORT = "SettlementReport",
@@ -190,3 +192,18 @@ export enum PartnerTicketType {
   MONTHLY_REGULAR = "월단위권",
   MONTHLY_RANGE = "월기간권",
 }
+
+type CardCompanyColor = {
+  [key in Company]: string;
+};
+
+export const CARD_BACKGROUND_COLOR: CardCompanyColor = {
+  현대카드: "#030303",
+  BC카드: "#F04651",
+  신한카드: "#0046ff",
+  카카오뱅크: "#fee300",
+  하나카드: "#1DB8B3",
+  우리카드: "#42add7",
+  국민카드: "#8C8176",
+  롯데카드: "#e60013",
+};

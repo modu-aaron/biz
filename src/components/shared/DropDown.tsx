@@ -1,8 +1,9 @@
 import { useState } from "react";
-import TicketIcon from "../../assets/TicketIcon";
-import PartnerIcon from "../../assets/PartnerIcon";
-import CashIcon from "../../assets/CashIcon";
-import { Menu } from "../../services/api/auth/type";
+import {
+  IoTicketOutline,
+  IoPeopleOutline,
+  IoFileTrayFullOutline,
+} from "react-icons/io5";
 
 const DropDownItem = ({ children }: { children: Menu["children"] }) => {
   return (
@@ -27,7 +28,11 @@ export const DropDown = ({ data }: { data: Menu[] }) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  const svgIcons = [<TicketIcon />, <CashIcon />, <PartnerIcon />];
+  const svgIcons = [
+    <IoTicketOutline size={32} color="#333333" />,
+    <IoFileTrayFullOutline size={32} color="#333333" />,
+    <IoPeopleOutline size={32} color="#333333" />,
+  ];
 
   return (
     <ul className="py-2 text-sm text-[#333333]">
@@ -37,7 +42,7 @@ export const DropDown = ({ data }: { data: Menu[] }) => {
           className="mb-4 last:mb-0 relative w-full text-[#797575]"
         >
           <p
-            className="font-medium cursor-pointer flex items-center space-x-2"
+            className="font-medium cursor-pointer flex items-center justify-center space-x-2"
             onClick={() => toggleDropdown(index)}
           >
             <span>{svgIcons[index % svgIcons.length]}</span>

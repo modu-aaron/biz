@@ -103,7 +103,8 @@ const NavBar = () => {
             }  items-center justify-center`}
           >
             <img
-              className={`lg:w-20 lg:h-20 md:w-10 md:h-10 border-none rounded-full`}
+              onClick={() => navigate("/user-profile")}
+              className={`lg:w-20 lg:h-20 md:w-10 md:h-10 border-none rounded-full cursor-pointer`}
               src="https://ca.slack-edge.com/T04GJSZC2-U06DV3V3TL6-f19097d81964-512"
             />
             {isSidebarOpen && (
@@ -148,10 +149,16 @@ const NavBar = () => {
             <div className="fixed top-[48px] left-0 w-full">
               <Accordion data={menus} />
               <div
-                onClick={onSignOut}
-                className={`pb-4 pt-10 border-b border-neutral-200 cursor-pointer bg-white px-5 md:px-0 flex text-sm text-slate-500`}
+                className={`pb-4 pt-10 border-b flex justify-between items-center border-neutral-200 cursor-pointer bg-white px-5 md:px-0 text-sm text-slate-500`}
               >
-                로그아웃
+                <div>
+                  <img
+                    onClick={() => navigate("/user-profile")}
+                    className={`w-10 h-10 border-none rounded-full cursor-pointer`}
+                    src="https://ca.slack-edge.com/T04GJSZC2-U06DV3V3TL6-f19097d81964-512"
+                  />
+                </div>
+                <div onClick={onSignOut}>로그아웃</div>
               </div>
             </div>
           )}

@@ -9,6 +9,7 @@ import AuthRoute from "@/router/AuthRoute";
 import TicketRequest from "@/pages/ticket/TicketRequest";
 import TicketRequestNew from "@/pages/ticket/TicketRequestNew";
 import PartnerUser from "@/pages/partner/PartnerUser";
+import UserProfile from "@/pages/profile/UserProfile";
 
 const Router = () => {
   return (
@@ -61,6 +62,14 @@ const Router = () => {
           element={
             <AuthRoute>
               <TicketRequestNew />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/user-profile"
+          element={
+            <AuthRoute>
+              <UserProfile />
             </AuthRoute>
           }
         />

@@ -1,14 +1,13 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import storage, { LocalStorageKey } from "../lib/storage";
 import {
   User,
   Menu,
   Partner,
   PartnerCenterPermission,
   PartnerSignInInfo,
-} from "../services/api/auth/type";
-import authService from "../services/api/auth";
+} from "@/services/api/auth/type";
+import authService from "@/services/api/auth";
 
 interface AuthState {
   accessToken: string;
@@ -26,20 +25,20 @@ interface AuthState {
     pSeq?: number;
   }) => Promise<void>;
   signOut: () => void;
-  refreshAccessToken: (rToken: string) => Promise<void>;
+  refreshAccessToken: (token: string) => Promise<void>;
   getMenus: () => Promise<void>;
 }
 
 export const useAuth = create<AuthState>()(
   persist(
     (set, get) => ({
-      accessToken: storage.get(LocalStorageKey.ACCESS_TOKEN) || "",
-      refreshToken: storage.get(LocalStorageKey.REFRESH_TOKEN) || "",
+      accessToken: "",
+      refreshToken: "",
       user: null,
       menus: [],
       partners: [],
       permissions: [],
-      isSignedIn: !!storage.get(LocalStorageKey.ACCESS_TOKEN),
+      isSignedIn: false,
 
       currMenu: null,
       currPartner: null,
@@ -53,8 +52,6 @@ export const useAuth = create<AuthState>()(
               refreshToken: data.refreshToken,
               isSignedIn: true,
             });
-            storage.set(LocalStorageKey.ACCESS_TOKEN, data.accessToken);
-            storage.set(LocalStorageKey.REFRESH_TOKEN, data.refreshToken);
           } else if ("partner" in data) {
             const { pSeq } = data.partner.reduce(
               (prev: PartnerSignInInfo, curr: PartnerSignInInfo) => {
@@ -71,8 +68,6 @@ export const useAuth = create<AuthState>()(
                 refreshToken: reData.refreshToken,
                 isSignedIn: true,
               });
-              storage.set(LocalStorageKey.ACCESS_TOKEN, reData.accessToken);
-              storage.set(LocalStorageKey.REFRESH_TOKEN, reData.refreshToken);
             }
           }
         } catch (error) {
@@ -87,17 +82,16 @@ export const useAuth = create<AuthState>()(
           refreshToken: "",
           user: null,
           menus: [],
+          partners: [],
           permissions: [],
           isSignedIn: false,
         });
-        storage.remove(LocalStorageKey.ACCESS_TOKEN);
-        storage.remove(LocalStorageKey.REFRESH_TOKEN);
       },
 
-      refreshAccessToken: async (rToken) => {
+      refreshAccessToken: async (token) => {
         try {
           const data = await authService.refreshAccessToken({
-            refreshToken: rToken,
+            refreshToken: token,
           });
           set({
             accessToken: data.accessToken,
@@ -105,21 +99,42 @@ export const useAuth = create<AuthState>()(
           });
         } catch (error) {
           set({ accessToken: "", refreshToken: "" });
+          throw error;
         }
       },
 
       getMenus: async () => {
-        const data = await authService.getMenus();
-        set({
-          menus: data.menus,
-          permissions: data.permissions,
-          user: data.profile,
-          partners: data.partners,
-        });
+        try {
+          if (!get().isSignedIn) {
+            return;
+          }
+          const data = await authService.getMenus();
+          set({
+            menus: data.menus,
+            permissions: data.permissions,
+            user: data.profile,
+            partners: data.partners,
+          });
+        } catch (error) {
+          set({ accessToken: "", refreshToken: "", isSignedIn: false });
+          throw error;
+        }
       },
     }),
     {
-      name: "auth-storage", // localStorage key
+      name: "authStorage",
+      partialize: (state) => ({
+        accessToken: state.accessToken,
+        refreshToken: state.refreshToken,
+        isSignedIn: state.isSignedIn,
+        menus: state.menus,
+        user: state.user,
+      }),
+      onRehydrateStorage: () => (state) => {
+        if (state?.accessToken) {
+          state.isSignedIn = !!state.accessToken;
+        }
+      },
     }
   )
 );

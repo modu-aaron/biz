@@ -1,9 +1,10 @@
-import { FadeLoader } from "react-spinners";
+import { PuffLoader } from "react-spinners";
 
 const Spinner = () => {
   return (
     <div className="fixed z-50 bg-neutral-500/20 h-full w-full">
-      <FadeLoader
+      <PuffLoader
+        color="#357dd0"
         cssOverride={{
           display: "inherit",
           position: "absolute",

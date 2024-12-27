@@ -1,11 +1,11 @@
 import Button from "@/components/shared/Button";
 
-type ButtonProps = {
+interface ButtonProps {
   text: string;
   value: number | null;
   onClick: () => void;
   isActive: boolean;
-};
+}
 
 const ButtonGroup = ({ buttons }: { buttons: ButtonProps[] }) => {
   return (

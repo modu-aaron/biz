@@ -2,7 +2,7 @@ import BaseTitle from "@/components/shared/BaseTitle";
 import MainWrapper from "@/components/shared/layout/MainWrapper";
 import { useEffect, useState } from "react";
 import PartnerService from "@/services/api/partner";
-import { PartnerDto, UserDto } from "@/services/api/partner/partner.dto";
+import { UserDto } from "@/services/api/partner/partner.dto";
 import { useTransform, motion, useSpring } from "framer-motion";
 import { useForm, useWatch } from "react-hook-form";
 import ProfileCard from "@/components/profile/ProfileCard";
@@ -120,7 +120,7 @@ export default function UserProfile() {
                     ? "#000000"
                     : "#ffffff",
               }}
-              className={`flex flex-col min-h-[100px] w-64 rounded-lg p-4 shadow-lg overflow-hidden group mb-6 md:mb-0`}
+              className={`flex flex-col min-h-[96px] w-64 rounded-lg p-4 shadow-lg overflow-hidden group mb-6 md:mb-0`}
             >
               <ProfileCard
                 name={data?.name}
@@ -132,7 +132,7 @@ export default function UserProfile() {
           </div>
           <div className="flex items-center justify-center flex-grow-[8] pb-4 md:border md:rounded-e-md md:p-10">
             <div className="w-full mx-auto">
-              <div className="flex flex-col md:flex-row gap-4 w-full mb-8">
+              <div className="flex flex-col md:flex-row gap-2 w-full mb-8">
                 <div className="flex-1 flex flex-col gap-2">
                   <div>
                     <label

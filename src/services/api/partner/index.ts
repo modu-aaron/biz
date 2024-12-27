@@ -1,4 +1,4 @@
-import axios from "@/services/axios/index";
+import axios from "@/services/axios";
 import { plainToInstance } from "class-transformer";
 import type {
   UpdateUserPayloadDto,

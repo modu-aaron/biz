@@ -20,8 +20,8 @@ const SelectBox = ({ name, label, options, control }) => {
             id={name}
             className="border w-full border-neutral-100 text-sm min-w-40 rounded-sm block py-2 pl-2"
           >
-            {options.map((option) => (
-              <option key={option.value} value={option.value}>
+            {options.map((option, idx) => (
+              <option key={idx} value={option.value}>
                 {option.label}
               </option>
             ))}

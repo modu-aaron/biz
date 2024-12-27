@@ -8,7 +8,7 @@ import { useAuth } from "@/store/useAuth";
 
 const SignIn = () => {
   const { handleSubmit, register, watch } = useForm();
-  const { isSpinnerOpen, setIsSpinner } = useSpinner();
+  const { isSpinnerOpen } = useSpinner();
   const { signIn, getMenus } = useAuth();
   const navigate = useNavigate();
 
@@ -17,13 +17,11 @@ const SignIn = () => {
 
   const onSubmit = async () => {
     try {
-      setIsSpinner(true);
       await signIn({
         email: id,
         password: pw,
       });
       await getMenus();
-      setIsSpinner(false);
       navigate("/ticket");
     } catch (e: unknown) {
       const error = e as Error;

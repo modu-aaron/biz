@@ -2,7 +2,7 @@ import { FadeLoader } from "react-spinners";
 
 const Spinner = () => {
   return (
-    <div className="z-20 fixed bg-neutral-500/20 h-full w-full">
+    <div className="fixed z-50 bg-neutral-500/20 h-full w-full">
       <FadeLoader
         cssOverride={{
           display: "inherit",

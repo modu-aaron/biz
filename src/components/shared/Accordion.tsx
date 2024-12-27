@@ -19,8 +19,8 @@ const Accordion = ({ data }: { data: Menu[] }) => {
           setActive(states);
         }
       } catch (error: unknown) {
-        console.log(error);
-        toast.error(`메뉴를 불러오는데 실패하였습니다.잠시 후 재시도해주세요.`);
+        const e = error as Error;
+        toast.error(e.message);
       }
     }
   }, []);

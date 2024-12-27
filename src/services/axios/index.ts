@@ -2,12 +2,10 @@ import axios from "axios";
 import { useAuth } from "../../store/useAuth";
 import { useSpinner } from "../../store/useSpinner";
 
-// Spinner 옵션 설정 함수
 const setSpinnerOption = (option: boolean) => {
-  const { isSpinnerOpen, setIsSpinner } = useSpinner.getState();
-  if (isSpinnerOpen) setIsSpinner(option);
+  const { setIsSpinner } = useSpinner.getState();
+  setIsSpinner(option);
 };
-
 const config = {
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/partner`,
 };

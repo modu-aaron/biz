@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
-interface SidebarState {
+interface SpinnerState {
   isSpinnerOpen: boolean;
   setIsSpinner: (isSpinner: boolean) => void;
 }
 
-export const useSpinner = create<SidebarState>((set) => ({
+export const useSpinner = create<SpinnerState>((set) => ({
   isSpinnerOpen: false,
   setIsSpinner: (isSpinner: boolean) => set({ isSpinnerOpen: isSpinner }),
 }));

@@ -1,6 +1,13 @@
 import Button from "@/components/shared/Button";
 
-const ButtonGroup = ({ buttons }) => {
+type ButtonProps = {
+  text: string;
+  value: number | null;
+  onClick: () => void;
+  isActive: boolean;
+};
+
+const ButtonGroup = ({ buttons }: { buttons: ButtonProps[] }) => {
   return (
     <div className="inline-flex rounded-sm shadow-sm" role="group">
       {buttons.map((button, index) => {

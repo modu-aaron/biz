@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useAuth } from "../../store/useAuth";
-import { useSpinner } from "../../store/useSpinner";
+import { useAuth } from "@/store/useAuth";
+import { useSpinner } from "@/store/useSpinner";
 
 const setSpinnerOption = (option: boolean) => {
   const { setIsSpinner } = useSpinner.getState();

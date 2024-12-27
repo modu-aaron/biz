@@ -8,17 +8,15 @@ const setSpinnerOption = (option: boolean) => {
   if (isSpinnerOpen) setIsSpinner(option);
 };
 
-// Axios 인스턴스 생성
 const config = {
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/partner`,
 };
 const instance = axios.create(config);
 
-// 요청 성공 인터셉터
 instance.interceptors.request.use(
   (config) => {
     setSpinnerOption(true);
-    const { accessToken } = useAuth.getState(); // 인터셉터 내부에서 상태 가져오기
+    const { accessToken } = useAuth.getState();
     if (config.headers && accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -30,7 +28,6 @@ instance.interceptors.request.use(
   }
 );
 
-// 응답 성공 인터셉터
 instance.interceptors.response.use(
   (response) => {
     setSpinnerOption(false);
@@ -41,8 +38,14 @@ instance.interceptors.response.use(
   },
   (error) => {
     setSpinnerOption(false);
+    const { response } = error;
+
+    if (response && response.status === 401) {
+      const { signOut } = useAuth.getState();
+      signOut();
+    }
+
     return Promise.reject(error);
   }
 );
-
 export default instance;

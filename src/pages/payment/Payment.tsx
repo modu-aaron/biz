@@ -76,6 +76,7 @@ const Payment = () => {
       poSeq: {
         value: data.poSeq,
         type: "link",
+        link: `/payment/${data.poSeq}`,
       },
       orderItemCount: {
         value: `${data.orderItemCount}매`,
@@ -142,16 +143,16 @@ const Payment = () => {
         from = "";
         to = "";
         break;
-      case 1: // 오늘
+      case 1:
         from = to;
         break;
-      case 7: // 1주일
+      case 7:
         from = format(subDays(new Date(), 6), DateFormat.DAY_YYYY_MM_DD_DASH);
         break;
-      case 30: // 1개월
+      case 30:
         from = format(subMonths(new Date(), 1), DateFormat.DAY_YYYY_MM_DD_DASH);
         break;
-      case 90: // 3개월
+      case 90:
         from = format(subMonths(new Date(), 3), DateFormat.DAY_YYYY_MM_DD_DASH);
         break;
     }

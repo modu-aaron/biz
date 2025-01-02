@@ -24,7 +24,7 @@ const ListTable = ({ headers, body, type = "row" }) => {
         );
       case "link":
         return (
-          <a className="text-[#0078ff]" href={`#${cellData.value}`}>
+          <a className="text-[#0078ff]" href={cellData.link}>
             {cellData.value}
           </a>
         );

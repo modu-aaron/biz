@@ -1,6 +1,5 @@
 import { useForm, useWatch } from "react-hook-form";
 import BaseTitle from "@/components/shared/BaseTitle";
-import MainWrapper from "@/components/shared/layout/MainWrapper";
 import SelectBox from "@/components/shared/SelectBox";
 import { useEffect, useState } from "react";
 import ListTable from "@/components/shared/ListTable";
@@ -160,7 +159,7 @@ const TicketRequest = () => {
   ];
 
   return (
-    <MainWrapper>
+    <>
       <BaseTitle text="신청목록" />
       <div className="flex flex-col gap-10">
         <form
@@ -231,7 +230,7 @@ const TicketRequest = () => {
           onPageChange={handlePageChange}
         />
       </div>
-    </MainWrapper>
+    </>
   );
 };
 

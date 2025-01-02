@@ -3,7 +3,6 @@ import partnerService from "@/services/api/partner/index";
 import { PartnerMemberDto } from "@/services/api/partner/partner.dto";
 import { convertToDate } from "@/utils/date";
 import { DateFormat } from "@/enums";
-import MainWrapper from "@/components/shared/layout/MainWrapper";
 import ListTable from "@/components/shared/ListTable";
 import Pagination from "@/components/shared/Pagination";
 import BaseTitle from "@/components/shared/BaseTitle";
@@ -70,7 +69,7 @@ const PartnerUser = () => {
   ];
 
   return (
-    <MainWrapper>
+    <>
       <BaseTitle text="멤버목록" />
       <div className="sm:p-8 md:p-16">
         <ListTable headers={headers} body={tableBody} />
@@ -81,7 +80,7 @@ const PartnerUser = () => {
           onPageChange={handlePageChange}
         />
       </div>
-    </MainWrapper>
+    </>
   );
 };
 

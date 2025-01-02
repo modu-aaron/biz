@@ -181,7 +181,7 @@ const Ticket = () => {
   ];
 
   return (
-    <MainWrapper>
+    <>
       <BaseTitle text="이용현황" />
       <div className="flex flex-col gap-10">
         <form
@@ -262,7 +262,7 @@ const Ticket = () => {
           onPageChange={handlePageChange}
         />
       </div>
-    </MainWrapper>
+    </>
   );
 };
 

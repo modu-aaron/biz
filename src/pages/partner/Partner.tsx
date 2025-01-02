@@ -1,5 +1,4 @@
 import BaseTitle from "@/components/shared/BaseTitle";
-import MainWrapper from "@/components/shared/layout/MainWrapper";
 import { useEffect, useState } from "react";
 import PartnerService from "@/services/api/partner";
 import { PartnerDto } from "@/services/api/partner/partner.dto";
@@ -107,7 +106,7 @@ export default function Partner() {
   };
 
   return (
-    <MainWrapper>
+    <>
       <div className="flex flex-col h-full w-full">
         <BaseTitle text="파트너상세" />
         <div className="flex-1 md:p-16 flex flex-col md:flex-row">
@@ -349,6 +348,6 @@ export default function Partner() {
           </div>
         </div>
       </div>
-    </MainWrapper>
+    </>
   );
 }

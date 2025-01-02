@@ -20,7 +20,7 @@ import paymentService from "@/services/api/payment/index";
 import ListTable from "@/components/shared/ListTable";
 import { convertToDate, getStatusByCode } from "@/utils/date";
 
-const Payment = () => {
+const Payments = () => {
   const { handleSubmit } = useForm();
 
   const [data, setData] = useState<PaymentsListDto | null>(null);
@@ -249,4 +249,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default Payments;

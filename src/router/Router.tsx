@@ -36,6 +36,14 @@ const Router = () => {
             }
           />
           <Route
+            path="/payment/:id"
+            element={
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/partner"
             element={
               <ProtectedRoute>

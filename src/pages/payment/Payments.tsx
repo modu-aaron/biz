@@ -184,7 +184,7 @@ const Payments = () => {
 
   return (
     <>
-      <BaseTitle text="신청목록" />
+      <BaseTitle text="결제이력" />
       <div className="flex flex-col gap-10">
         <form
           onSubmit={handleSubmit(onSubmit)}

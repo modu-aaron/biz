@@ -25,7 +25,7 @@ const SignIn = () => {
       await getMenus();
       navigate("/ticket");
     } catch (e: unknown) {
-      toast.error(e.response.data.error.message);
+      console.log(e);
     }
   };
 

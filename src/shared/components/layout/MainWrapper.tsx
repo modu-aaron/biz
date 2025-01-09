@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NavBar from "@/components/shared/layout/Sidebar";
+import NavBar from "@/shared/components/layout/Sidebar";
 import Spinner from "../Spinner";
 import { useSpinner } from "@/store/useSpinner";
 

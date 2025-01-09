@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import MainWrapper from "./components/shared/layout/MainWrapper";
+import MainWrapper from "@/shared/components/layout/MainWrapper";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "@/store/useAuth";
 import { useEffect } from "react";

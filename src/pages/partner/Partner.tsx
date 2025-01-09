@@ -110,7 +110,7 @@ export default function Partner() {
       <div className="flex flex-col h-full w-full">
         <BaseTitle text="파트너상세" />
         <div className="flex-1 md:p-16 flex flex-col md:flex-row">
-          <div className="flex items-center justify-center flex-grow-[2] md:border md:rounded-s-md">
+          <div className="flex items-center justify-center flex-grow-[2]">
             <motion.div
               onMouseMove={handleMouseMove}
               onMouseEnter={handleMouseEnter}
@@ -131,7 +131,7 @@ export default function Partner() {
               <Card cardNumber={cardNumber} />
             </motion.div>
           </div>
-          <div className="flex items-center justify-center flex-grow-[8] pb-4 md:border md:rounded-e-md md:p-10">
+          <div className="flex items-center justify-center flex-grow-[8] pb-4 md:border md:rounded-md md:p-10">
             <div className="w-full mx-auto">
               <div className="flex flex-col md:flex-row gap-4 w-full mb-8">
                 <div className="flex-1 flex flex-col gap-2">

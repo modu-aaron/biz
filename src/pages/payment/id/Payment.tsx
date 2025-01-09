@@ -1,4 +1,4 @@
-import BaseTitle from "@/components/shared/BaseTitle";
+import BaseTitle from "@/shared/components/BaseTitle";
 
 const Payments = () => {
   return (

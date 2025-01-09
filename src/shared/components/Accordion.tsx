@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Menu } from "@/services/api/auth/type";
 import { toast } from "react-toastify";
-import AccordionItem from "@/components/shared/AccordionItem";
+import AccordionItem from "@/shared/components/AccordionItem";
 import { useSidebar } from "@/store/useSidebar";
 
 const Accordion = ({ data }: { data: Menu[] }) => {

@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import bizLogo from "@/assets/images/biz-logo.png";
 import { useSpinner } from "@/store/useSpinner";
-import Spinner from "@/components/shared/Spinner";
+import Spinner from "@/shared/components/Spinner";
 import { toast } from "react-toastify";
 import { useAuth } from "@/store/useAuth";
+import InputField from "@/shared/components/InputField";
 
 const SignIn = () => {
   const { handleSubmit, register, watch } = useForm();
@@ -24,8 +25,7 @@ const SignIn = () => {
       await getMenus();
       navigate("/ticket");
     } catch (e: unknown) {
-      const error = e as Error;
-      toast.error(error.message);
+      toast.error(e.response.data.error.message);
     }
   };
 
@@ -43,19 +43,21 @@ const SignIn = () => {
               >
                 <div className="flex flex-col gap-2">
                   <img className="mb-4" src={bizLogo} />
-                  <input
-                    className="pl-2 pr-8 py-2 rounded-sm border border-neutral-300/50"
-                    type="text"
+                  <InputField
+                    label="아이디"
+                    type="email"
+                    id="id"
                     placeholder="아이디를 입력해주세요"
-                    defaultValue={""}
-                    {...register("id", { required: true })}
+                    register={register}
+                    required={true}
                   />
-                  <input
-                    className="pl-2 pr-8 py-2 rounded-sm border border-neutral-300/50"
+                  <InputField
+                    label="비밀번호"
+                    id="pw"
                     type="password"
                     placeholder="비밀번호를 입력해주세요"
-                    defaultValue={""}
-                    {...register("pw", { required: true })}
+                    register={register}
+                    required={true}
                   />
                   <button className="px-6 py-2 mt-3 bg-[#0078ff] text-white rounded-sm">
                     로그인

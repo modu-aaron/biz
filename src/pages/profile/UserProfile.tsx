@@ -1,10 +1,10 @@
-import BaseTitle from "@/components/shared/BaseTitle";
+import BaseTitle from "@/shared/components/BaseTitle";
 import { useEffect, useState } from "react";
 import PartnerService from "@/services/api/partner";
 import { UserDto } from "@/services/api/partner/partner.dto";
 import { useTransform, motion, useSpring } from "framer-motion";
 import { useForm, useWatch } from "react-hook-form";
-import ProfileCard from "@/components/profile/ProfileCard";
+import ProfileCard from "@/shared/components/profile/ProfileCard";
 
 const cardRotation = 15;
 const cardScale = 1.07;

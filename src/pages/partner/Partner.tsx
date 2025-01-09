@@ -1,4 +1,4 @@
-import BaseTitle from "@/components/shared/BaseTitle";
+import BaseTitle from "@/shared/components/BaseTitle";
 import { useEffect, useState } from "react";
 import PartnerService from "@/services/api/partner";
 import { PartnerDto } from "@/services/api/partner/partner.dto";
@@ -7,8 +7,8 @@ import { useForm, useWatch } from "react-hook-form";
 import { companyLogo } from "@/assets/CompanyLogos";
 import { CARD_BACKGROUND_COLOR } from "@/enums";
 import { Company } from "@/types/payment";
-import InputField from "@/components/shared/InputField";
-import Card from "@/components/partner/Card";
+import InputField from "@/shared/components/InputField";
+import Card from "@/shared/components/partner/Card";
 
 const cardRotation = 15;
 const cardScale = 1.07;

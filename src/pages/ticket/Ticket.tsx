@@ -1,15 +1,15 @@
 import { useForm, useWatch } from "react-hook-form";
-import BaseTitle from "@/components/shared/BaseTitle";
+import BaseTitle from "@/shared/components/BaseTitle";
 import MainWrapper from "@/components/shared/layout/MainWrapper";
-import SelectBox from "@/components/shared/SelectBox";
+import SelectBox from "@/shared/components/SelectBox";
 import { useEffect, useState } from "react";
 import ticketService from "@/services/api/ticket";
-import ListTable from "@/components/shared/ListTable";
+import ListTable from "@/shared/components/ListTable";
 import {
   MonthlyParkingUsersParamsReqDto,
   MonthlyParkingUsersResDto,
 } from "@/services/api/ticket/ticket.dto";
-import Pagination from "@/components/shared/Pagination";
+import Pagination from "@/shared/components/Pagination";
 import { getStatusByCode } from "@/utils/date";
 import { MonthlyParkingUseStatus, MonthlyParkingUseStatusCode } from "@/enums";
 

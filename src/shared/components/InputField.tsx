@@ -1,4 +1,4 @@
-import Input from "@/components/shared/Input";
+import Input from "@/shared/components/Input";
 
 interface InputFieldProps {
   label?: string;

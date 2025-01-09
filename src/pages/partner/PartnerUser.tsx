@@ -3,9 +3,9 @@ import partnerService from "@/services/api/partner/index";
 import { PartnerMemberDto } from "@/services/api/partner/partner.dto";
 import { convertToDate } from "@/utils/date";
 import { DateFormat } from "@/enums";
-import ListTable from "@/components/shared/ListTable";
-import Pagination from "@/components/shared/Pagination";
-import BaseTitle from "@/components/shared/BaseTitle";
+import ListTable from "@/shared/components/ListTable";
+import Pagination from "@/shared/components/Pagination";
+import BaseTitle from "@/shared/components/BaseTitle";
 
 const PartnerUser = () => {
   const [data, setData] = useState<PartnerMemberDto | null>(null);

@@ -1,9 +1,9 @@
 import { useForm, useWatch } from "react-hook-form";
-import BaseTitle from "@/components/shared/BaseTitle";
-import SelectBox from "@/components/shared/SelectBox";
+import BaseTitle from "@/shared/components/BaseTitle";
+import SelectBox from "@/shared/components/SelectBox";
 import { useEffect, useState } from "react";
-import ListTable from "@/components/shared/ListTable";
-import Pagination from "@/components/shared/Pagination";
+import ListTable from "@/shared/components/ListTable";
+import Pagination from "@/shared/components/Pagination";
 import { useAuth } from "@/store/useAuth";
 import {
   MonthlyParkingRequestListsResDto,

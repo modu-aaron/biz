@@ -1,4 +1,4 @@
-import Button from "@/components/shared/Button";
+import Button from "@/shared/components/Button";
 
 interface ButtonProps {
   text: string;

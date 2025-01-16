@@ -1,38 +1,28 @@
-import { useEffect, useState } from "react";
-import partnerService from "@/services/api/partner/index";
-import { PartnerMemberDto } from "@/services/api/partner/partner.dto";
 import { convertToDate } from "@/utils/date";
 import { DateFormat } from "@/enums";
 import ListTable from "@/shared/components/ListTable";
 import Pagination from "@/shared/components/Pagination";
 import BaseTitle from "@/shared/components/BaseTitle";
+import usePartnerUser from "@/hooks/usePartnerUser";
+import usePagination from "@/hooks/usePagination";
+import Error from "../Error";
 
 const PartnerUser = () => {
-  const [data, setData] = useState<PartnerMemberDto | null>(null);
-  const [currentPage, setCurrentPage] = useState({ value: 0, name: "1" });
-  const [totalCount, setTotalCount] = useState(0);
-  const [limit, setLimit] = useState(20);
+  const {
+    currentPage,
+    totalCount,
+    limit,
+    setLimit,
+    handlePageChange,
+    setTotalCount,
+  } = usePagination(20);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await partnerService.getMembers();
-      setData(response);
-      setTotalCount(response.total);
-      if (response.limit) {
-        setLimit(response.limit);
-      }
-    };
-    fetchData();
-  }, [currentPage]);
+  const data = usePartnerUser({ setLimit, setTotalCount });
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+  if (!data) return <Error />;
 
   const generateTableBody = () => {
-    if (!data) return [];
-
-    const result = data.results.map((data, _) => ({
+    const result = data.results.map((data) => ({
       name: {
         value: data.name,
         type: "string",

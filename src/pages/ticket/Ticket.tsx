@@ -1,6 +1,5 @@
 import { useForm, useWatch } from "react-hook-form";
 import BaseTitle from "@/shared/components/BaseTitle";
-import MainWrapper from "@/components/shared/layout/MainWrapper";
 import SelectBox from "@/shared/components/SelectBox";
 import { useEffect, useState } from "react";
 import ticketService from "@/services/api/ticket";
@@ -10,19 +9,26 @@ import {
   MonthlyParkingUsersResDto,
 } from "@/services/api/ticket/ticket.dto";
 import Pagination from "@/shared/components/Pagination";
-import { getStatusByCode } from "@/utils/date";
 import { MonthlyParkingUseStatus, MonthlyParkingUseStatusCode } from "@/enums";
+import { getStatusByCode } from "@/utils/common";
+import usePagination from "@/hooks/usePagination";
 
 const Ticket = () => {
   const { control, register, handleSubmit, getValues } = useForm();
 
   const [data, setData] = useState<MonthlyParkingUsersResDto | null>(null);
-  const [currentPage, setCurrentPage] = useState({ value: 0, name: "1" });
-  const [totalCount, setTotalCount] = useState(0);
-  const [limit, setLimit] = useState(20);
   const [isExtendable, setIsExtendable] = useState<boolean[]>([]);
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   const [isAllSelected, setIsAllSelected] = useState(false);
+
+  const {
+    currentPage,
+    totalCount,
+    limit,
+    setLimit,
+    setTotalCount,
+    handlePageChange,
+  } = usePagination(20);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,10 +112,6 @@ const Ticket = () => {
       updated[index] = !updated[index];
       return updated;
     });
-  };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
   };
 
   const generateTableBody = () => {

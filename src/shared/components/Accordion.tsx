@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Menu } from "@/services/api/auth/type";
-import { toast } from "react-toastify";
 import AccordionItem from "@/shared/components/AccordionItem";
 import { useSidebar } from "@/store/useSidebar";
 
@@ -19,8 +18,7 @@ const Accordion = ({ data }: { data: Menu[] }) => {
           setActive(states);
         }
       } catch (error: unknown) {
-        const e = error as Error;
-        toast.error(e.message);
+        console.log(error);
       }
     }
   }, []);

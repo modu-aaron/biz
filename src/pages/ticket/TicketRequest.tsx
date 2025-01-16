@@ -10,7 +10,7 @@ import {
   MonthlyParkingRequestParamsReqDto,
 } from "@/services/api/ticket/ticket.dto";
 import ticketService from "@/services/api/ticket";
-import { getStatusByCode, convertToDate } from "@/utils/date";
+import { convertToDate } from "@/utils/date";
 import {
   MonthlyParkingRequestTypeCode,
   MonthlyParkingRequestType,
@@ -18,17 +18,25 @@ import {
   MonthlyParkingRequestStatus,
   DateFormat,
 } from "@/enums";
+import { getStatusByCode } from "@/utils/common";
+import usePagination from "@/hooks/usePagination";
 
 const TicketRequest = () => {
   const { control, register, handleSubmit, getValues } = useForm();
   const { user } = useAuth();
 
+  const {
+    currentPage,
+    totalCount,
+    limit,
+    setLimit,
+    handlePageChange,
+    setTotalCount,
+  } = usePagination(20);
+
   const [data, setData] = useState<MonthlyParkingRequestListsResDto | null>(
     null
   );
-  const [currentPage, setCurrentPage] = useState({ value: 0, name: "1" });
-  const [totalCount, setTotalCount] = useState(0);
-  const [limit, setLimit] = useState(20);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,10 +79,6 @@ const TicketRequest = () => {
     setData(data);
     setTotalCount(data.total);
     setLimit(data.limit);
-  };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
   };
 
   const generateTableBody = () => {

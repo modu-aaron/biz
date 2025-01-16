@@ -21,8 +21,8 @@ export default function Partner() {
   const [update, setUpdate] = useState(false);
   const [cardColor, setCardColor] = useState("#ffffff");
   const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = () => setIsOpen((prev) => !prev);
   const [selectedBank, setSelectedBank] = useState<string | null>(null);
+  const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   const rotateX = useTransform(
     yPcnt,

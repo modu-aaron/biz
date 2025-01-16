@@ -13,12 +13,12 @@ interface PaginationProps {
   onPageChange: (page: ValueName<number>) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
+const Pagination = ({
   currPage,
   totalCount,
   limit,
   onPageChange,
-}) => {
+}: PaginationProps) => {
   // 전체 페이지 수 계산
   const totalPages = useMemo(
     () => Math.ceil(totalCount / limit),

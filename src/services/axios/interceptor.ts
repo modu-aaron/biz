@@ -42,7 +42,6 @@ export const onResError = async (error: AxiosError<ServerError>) => {
   setSpinnerOption(false);
   if (error && error.response) {
     const { refreshToken, refreshAccessToken, signOut } = useAuth.getState();
-
     const { data, status } = error.response;
     const isServerError = getIsServerError(status);
     const isUnauthorizedError = getIsUnauthorizedError(status);
@@ -66,13 +65,15 @@ export const onResError = async (error: AxiosError<ServerError>) => {
           await refreshAccessToken(refreshToken);
           return instance(error.config as InternalAxiosRequestConfig);
         } catch (e: unknown) {
-          if (e instanceof AxiosError) toast.error(data.error.message);
           signOut();
+          window.location.href = "/signIn";
         }
       }
+      signOut();
     } else if (isUnauthorizedError && isRefreshTokenError) {
       toast.error(data.error.message);
       signOut();
+      window.location.href = "/signIn";
     }
   }
 

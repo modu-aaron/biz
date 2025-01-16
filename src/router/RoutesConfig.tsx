@@ -1,7 +1,7 @@
 import App from "@/App";
 import Partner from "@/pages/partner/Partner";
-import Payments from "@/pages/payment/Payments";
-import Payment from "@/pages/payment/id/Payment";
+import Payments from "@/pages/payments/Payments";
+import Payment from "@/pages/payment/Payment";
 import SignIn from "@/pages/sign/SignIn";
 import NotFound from "@/pages/NotFound";
 import Ticket from "@/pages/ticket/Ticket";
@@ -21,7 +21,6 @@ export const routes = [
     element: <App />,
     children: [
       { index: true, element: <Payments /> },
-
       {
         path: "payment",
         element: (
@@ -86,7 +85,7 @@ export const routes = [
           </ProtectedRoute>
         ),
       },
-      { path: "*", element: <NotFound /> }, // 404 페이지
+      { path: "*", element: <NotFound /> },
     ],
   },
 ];

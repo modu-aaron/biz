@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface SidebarState {
   isSidebarOpen: boolean;
@@ -38,6 +38,7 @@ export const useSidebar = create<SidebarState>()(
     }),
     {
       name: "sidebarStorage",
+      storage: createJSONStorage(() => sessionStorage),
       partialize: (state) => ({
         isSidebarOpen: state.isSidebarOpen,
         activeMenu: state.activeMenu,

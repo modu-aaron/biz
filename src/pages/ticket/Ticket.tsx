@@ -17,7 +17,6 @@ const Ticket = () => {
   const { control, register, handleSubmit, getValues } = useForm();
 
   const [data, setData] = useState<MonthlyParkingUsersResDto | null>(null);
-  const [isExtendable, setIsExtendable] = useState<boolean[]>([]);
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   const [isAllSelected, setIsAllSelected] = useState(false);
 
@@ -30,27 +29,19 @@ const Ticket = () => {
     handlePageChange,
   } = usePagination(20);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await ticketService.getMonthlyParkingUsers({
-        offset: currentPage.value,
-        limit: limit,
-      });
-      setIsExtendable(response.results.map((user) => user.isAutoExtend));
-      setTotalCount(response.total);
-      setLimit(response.limit);
-      setData(response);
-    };
+  const fetchData = async () => {
+    const response = await ticketService.getMonthlyParkingUsers({
+      offset: currentPage.value,
+      limit: limit,
+    });
+    setTotalCount(response.total);
+    setLimit(response.limit);
+    setData(response);
+  };
 
+  useEffect(() => {
     fetchData();
   }, [currentPage, limit]);
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setSelectedRows([]);
-  //     setIsAllSelected(false);
-  //   }
-  // }, [selectedRows, data]);
 
   const searchKey = useWatch({
     control,
@@ -93,6 +84,8 @@ const Ticket = () => {
     );
   };
 
+  if (!data) return;
+
   const onSubmit = async () => {
     const params = formattedSearchOption();
     const data = await ticketService.getMonthlyParkingUsers({
@@ -101,17 +94,6 @@ const Ticket = () => {
     setData(data);
     setTotalCount(data.total);
     setLimit(data.limit);
-  };
-
-  const handleExtendClick = (index: number) => {
-    //추후 api 연동 필요
-    const isOk = window.confirm("자동연장을 변경하시겠습니까?");
-    if (!isOk) return;
-    setIsExtendable((prev) => {
-      const updated = [...prev];
-      updated[index] = !updated[index];
-      return updated;
-    });
   };
 
   const generateTableBody = () => {
@@ -153,13 +135,29 @@ const Ticket = () => {
         className: user.extend.isAble ? "text-[#0078ff]" : "text-red-500",
       },
       isAutoExtend: {
-        value: isExtendable[index] ? "Y" : "N",
-        type: "button",
-        className: isExtendable[index] ? "text-[#0078ff]" : "text-red-500",
-        onClick: () => handleExtendClick(index),
+        value: user.isAutoExtend ? "true" : "false",
+        type: "dropdown",
+        options: [
+          { value: "true", name: "Y" },
+          { value: "false", name: "N" },
+        ],
+        onChange: (e) => handleExtendDropdownChange(index, e),
       },
     }));
     return result;
+  };
+
+  const handleExtendDropdownChange = async (
+    index: number,
+    newValue: string
+  ) => {
+    const isOk = window.confirm("자동연장을 변경하시겠습니까?");
+    if (!isOk) return;
+    console.log(data.results[index].ptSeq, newValue);
+    await ticketService.updateAutoExtendStatus(data.results[index].ptSeq, {
+      isAutoExtend: newValue === "true",
+    });
+    await fetchData();
   };
 
   const tableBody = generateTableBody();

@@ -52,15 +52,11 @@ const Payments = () => {
     fetchData();
   }, [currentPage]);
 
-  const formattedSearchOption = () => {
-    const params = {
-      from: date[0],
-      to: date[1],
-      offset: currentPage.value,
-      limit: limit,
-    };
-    return params;
-  };
+  const formattedSearchOption = () => ({
+    offset: currentPage.value,
+    limit,
+    ...(date[0] && date[1] ? { from: date[0], to: date[1] } : {}),
+  });
 
   const onSubmit = async () => {
     const params = formattedSearchOption();

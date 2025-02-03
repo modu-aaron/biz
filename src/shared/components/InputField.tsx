@@ -1,11 +1,13 @@
-import Input from "@/shared/components/Input";
+import { UseFormRegister } from "react-hook-form";
 
-interface InputFieldProps {
+interface InputFieldProps<
+  T extends Record<string, unknown> = Record<string, unknown>
+> {
   label?: string;
   id: string;
   type?: string;
   placeholder?: string;
-  register: any;
+  register: UseFormRegister<T>;
   required?: boolean;
   error?: string;
   disabled?: boolean;
@@ -33,13 +35,15 @@ const InputField = ({
           {label}
         </label>
       )}
-      <Input
-        id={id}
+      <input
         type={type}
+        id={id}
         placeholder={placeholder}
-        register={register}
-        required={required}
         disabled={disabled}
+        {...register(id, { required })}
+        className={`border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
+          disabled ? "bg-gray-100" : "bg-white"
+        }`}
       />
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>

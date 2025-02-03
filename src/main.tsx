@@ -1,16 +1,24 @@
 import "reflect-metadata";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import Router from "@/router/Router";
 import "react-datepicker/dist/react-datepicker.css";
-const queryClient = new QueryClient();
+import { ToastContainer } from "react-toastify";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Router />
-    </QueryClientProvider>
+    <Router />
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={true}
+      closeOnClick={true}
+      rtl={true}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />
   </StrictMode>
 );

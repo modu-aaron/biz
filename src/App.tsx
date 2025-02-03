@@ -1,6 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import MainWrapper from "@/shared/components/layout/MainWrapper";
-import { ToastContainer } from "react-toastify";
 import { useAuth } from "@/store/useAuth";
 import { useEffect } from "react";
 
@@ -19,17 +18,6 @@ function App() {
       <MainWrapper>
         <Outlet />
       </MainWrapper>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick={true}
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </>
   );
 }

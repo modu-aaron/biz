@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import {
   User,
   Menu,
@@ -130,6 +130,7 @@ export const useAuth = create<AuthState>()(
         menus: state.menus,
         user: state.user,
       }),
+      storage: createJSONStorage(() => localStorage),
       onRehydrateStorage: () => (state) => {
         if (state?.accessToken) {
           state.isSignedIn = !!state.accessToken;

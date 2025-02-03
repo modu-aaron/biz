@@ -39,6 +39,20 @@ const ListTable = ({ headers, body, type = "row" }) => {
         );
       case "string":
         return <div className={`${cellData.className}`}>{cellData.value}</div>;
+      case "dropdown":
+        return (
+          <select
+            value={cellData.value}
+            onChange={(e) => cellData.onChange(e.target.value)}
+            className="text-center min-w-10 py-1 border border-gray-200 rounded-sm"
+          >
+            {cellData.options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        );
       default:
         return cellData.value;
     }

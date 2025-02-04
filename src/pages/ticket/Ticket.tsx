@@ -29,7 +29,7 @@ const Ticket = () => {
     handlePageChange,
   } = usePagination(20);
 
-  const fetchData = async () => {
+  const getTicketData = async () => {
     const response = await ticketService.getMonthlyParkingUsers({
       offset: currentPage.value,
       limit: limit,
@@ -40,7 +40,7 @@ const Ticket = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    getTicketData();
   }, [currentPage, limit]);
 
   const searchKey = useWatch({
@@ -153,11 +153,10 @@ const Ticket = () => {
   ) => {
     const isOk = window.confirm("자동연장을 변경하시겠습니까?");
     if (!isOk) return;
-    console.log(data.results[index].ptSeq, newValue);
     await ticketService.updateAutoExtendStatus(data.results[index].ptSeq, {
       isAutoExtend: newValue === "true",
     });
-    await fetchData();
+    await getTicketData();
   };
 
   const tableBody = generateTableBody();

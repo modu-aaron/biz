@@ -9,6 +9,7 @@ import { CARD_BACKGROUND_COLOR } from "@/enums";
 import { Company } from "@/types/payment";
 import InputField from "@/shared/components/InputField";
 import Card from "@/shared/components/partner/Card";
+import Error from "@/pages/Error";
 
 const cardRotation = 15;
 const cardScale = 1.07;
@@ -105,6 +106,8 @@ export default function Partner() {
     console.log(formData);
   };
 
+  if (!data) return <Error />;
+
   return (
     <>
       <div className="flex flex-col h-full w-full">
@@ -147,7 +150,7 @@ export default function Partner() {
                       type="text"
                       id="company"
                       disabled
-                      value={data ? data.name : "-"}
+                      value={data.name || "-"}
                       aria-describedby="helper-text-explanation"
                       className="border disabled:text-gray-400 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                       placeholder="ex)쏘카"
@@ -166,7 +169,7 @@ export default function Partner() {
                       type="text"
                       id="pSeq"
                       disabled
-                      value={data ? data.pSeq : "-"}
+                      value={data.pSeq || "-"}
                       className="border disabled:text-gray-400 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                     />
                   </div>
@@ -186,7 +189,7 @@ export default function Partner() {
                       type="text"
                       id="address"
                       disabled
-                      value={data ? data.address : "-"}
+                      value={data.address || "-"}
                       className="border disabled:text-gray-400 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                     />
                   </div>
@@ -198,7 +201,7 @@ export default function Partner() {
                     className="bg-[#0078ff] text-white text-sm py-2 px-4 rounded-lg"
                     onClick={() => setUpdate(!update)}
                   >
-                    {data?.partnerCard ? "카드 변경하기" : "카드 등록하기"}
+                    {data.partnerCard ? "카드 변경하기" : "카드 등록하기"}
                   </button>
                 </div>
               )}

@@ -5,22 +5,7 @@ import {
   IoPeopleOutline,
   IoFileTrayFullOutline,
 } from "react-icons/io5";
-
-const DropDownItem = ({ children }: { children: Menu["children"] }) => {
-  return (
-    <>
-      {children?.map((item, index) => (
-        <a
-          key={index}
-          href={item.uri ? item.uri : ""}
-          className="text-[#333333] px-5 py-3 w-[110px] text-center whitespace-nowrap"
-        >
-          {item.name}
-        </a>
-      ))}
-    </>
-  );
-};
+import DropDownItem from "@/shared/components/DropDownItem";
 
 export const DropDown = ({ data }: { data: Menu[] }) => {
   const [activeIndex, setActiveIndex] = useState(null);

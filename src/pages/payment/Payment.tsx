@@ -64,15 +64,15 @@ const Payments = () => {
       <div className="flex flex-col gap-6">
         <div className="px-6 py-3 border border-gray-100">
           <div className="flex py-2 justify-between items-center">
-            <h2 className="text-lg font-semibold">결제 정보</h2>
-            <div className="flex gap-2 items-center">
-              <p className="text-sm">{now} 기준</p>
+            <h2 className="text-md md:text-lg font-semibold">결제 정보</h2>
+            <div className="flex flex-col md:flex-row-reverse gap-2 items-center">
               <ExcelButton
                 text="결제상세 엑셀 다운로드"
                 onClick={onDownloadExcel}
                 payload="주차권"
                 additionalClasses="btn-primary"
               />
+              <p className="text-xs md:text-sm">{now} 기준</p>
             </div>
           </div>
 

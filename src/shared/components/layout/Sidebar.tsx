@@ -30,7 +30,7 @@ const containerVariants = {
   },
 };
 
-const NavBar = () => {
+const Sidebar = () => {
   const {
     isSidebarOpen,
     setIsSidebarOpen,
@@ -109,7 +109,9 @@ const NavBar = () => {
             />
             {isSidebarOpen && (
               <div className="flex py-4 items-center w-full justify-center relative">
-                <p>{user?.name} 님</p>
+                <a href="/user-profile" className="hover:text-[#0078ff]">
+                  {user?.name} 님
+                </a>
                 <button
                   className="p-1 rounded absolute right-0 text-neutral-600"
                   onClick={onSignOut}
@@ -151,13 +153,12 @@ const NavBar = () => {
               <div
                 className={`pb-4 pt-10 border-b flex justify-between items-center border-neutral-200 cursor-pointer bg-white px-5 md:px-0 text-sm text-slate-500`}
               >
-                <div>
+                <a href="/user-profile">
                   <img
-                    onClick={() => navigate("/user-profile")}
                     className={`w-10 h-10 border-none rounded-full cursor-pointer`}
                     src="https://ca.slack-edge.com/T04GJSZC2-U06DV3V3TL6-f19097d81964-512"
                   />
-                </div>
+                </a>
                 <div onClick={onSignOut}>로그아웃</div>
               </div>
             </div>
@@ -168,4 +169,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Sidebar;

@@ -198,7 +198,7 @@ export default function Partner() {
               {!update && (
                 <div className="flex justify-end mt-6">
                   <button
-                    className="bg-[#0078ff] text-white text-sm py-2 px-4 rounded-lg"
+                    className="bg-[#0078ff] text-white text-sm py-[10px] px-5 rounded-lg"
                     onClick={() => setUpdate(!update)}
                   >
                     {data.partnerCard ? "카드 변경하기" : "카드 등록하기"}
@@ -334,13 +334,13 @@ export default function Partner() {
                         setCardColor("#ffffff");
                         setUpdate(false);
                       }}
-                      className="bg-gray-400 text-white text-sm py-2 px-4 rounded-lg"
+                      className="bg-gray-400 text-white text-sm py-[10px] px-5 rounded-lg"
                     >
                       취소
                     </button>
                     <button
                       type="submit"
-                      className="bg-[#0078ff] text-white text-sm py-2 px-4 rounded-lg"
+                      className="bg-[#0078ff] text-white text-sm py-[10px] px-5 rounded-lg"
                     >
                       저장
                     </button>

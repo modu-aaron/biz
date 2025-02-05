@@ -1,10 +1,18 @@
 import BaseTitle from "@/shared/components/BaseTitle";
 import { useEffect, useState } from "react";
-import PartnerService from "@/services/api/partner";
+import partnerService from "@/services/api/partner";
 import { UserDto } from "@/services/api/partner/partner.dto";
 import { useTransform, motion, useSpring } from "framer-motion";
 import { useForm, useWatch } from "react-hook-form";
 import ProfileCard from "@/shared/components/profile/ProfileCard";
+import InputField from "@/shared/components/InputField";
+import Error from "@/pages/Error";
+import { toast } from "react-toastify";
+
+interface FormData {
+  name: string;
+  phone: string;
+}
 
 const cardRotation = 15;
 const cardScale = 1.07;
@@ -15,10 +23,6 @@ export default function UserProfile() {
   const yPcnt = useSpring(0, { stiffness: 100, damping: 10 });
   const scale = useSpring(1, { stiffness: 100, damping: 10 });
   const [update, setUpdate] = useState(false);
-  const [cardColor, setCardColor] = useState("#ffffff");
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = () => setIsOpen((prev) => !prev);
-  const [selectedBank, setSelectedBank] = useState<string | null>(null);
 
   const rotateX = useTransform(
     yPcnt,
@@ -70,32 +74,47 @@ export default function UserProfile() {
     formState: { errors },
     setValue,
     control,
-    reset,
   } = useForm({
     defaultValues: {
-      bank: "",
-      cardNumber: "",
-      expiryDate: "",
-      isCorporateCard: false,
       name: "",
-      cvc: "",
-      pw: "",
+      phone: "",
+      role: "",
     },
   });
 
-  const cardNumber = useWatch({ control, name: "cardNumber" });
-  const bank = useWatch({ control, name: "bank" });
-
   useEffect(() => {
     const fetchData = async () => {
-      const response = await PartnerService.getUser();
+      const response = await partnerService.getUser();
       setData(response);
+      setValue("name", response.name);
+      setValue("phone", response.phone);
+      setValue("role", response.roleName);
     };
     fetchData();
-  }, []);
+  }, [setValue]);
 
-  const onSubmit = (formData: any) => {
-    console.log(formData);
+  const name = useWatch({ control, name: "name" });
+  const phone = useWatch({ control, name: "phone" });
+
+  if (!data) return <Error />;
+
+  const handleUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setUpdate(true);
+  };
+
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setValue("name", data.name);
+    setValue("phone", data.phone);
+    setUpdate(false);
+  };
+
+  const onSubmit = async (formData: FormData) => {
+    await partnerService.updateUser(formData);
+    await partnerService.getUser();
+    setUpdate(false);
+    toast.success("프로필 수정완료");
   };
 
   return (
@@ -113,81 +132,80 @@ export default function UserProfile() {
                 rotateX,
                 rotateY,
                 scale,
-                backgroundColor: cardColor,
-                color:
-                  cardColor === "#ffffff" || cardColor === "#fee300"
-                    ? "#000000"
-                    : "#ffffff",
               }}
-              className={`flex flex-col min-h-[96px] w-64 rounded-lg p-4 shadow-lg overflow-hidden group mb-6 md:mb-0`}
+              className={`flex flex-col min-h-[96px] w-full md:w-64  rounded-lg p-4 shadow-lg overflow-hidden group mb-6 md:mb-0`}
             >
               <ProfileCard
-                name={data?.name}
-                phone={data?.phone}
-                role={data?.roleName}
-                activatedAt={data?.activatedAt}
+                name={name}
+                phone={phone}
+                role={data.roleName}
+                activatedAt={data.activatedAt}
               />
             </motion.div>
           </div>
-          <div className="flex items-center justify-center flex-grow-[8] pb-4 md:border md:rounded-md md:p-10">
-            <div className="w-full mx-auto">
-              <div className="flex flex-col md:flex-row gap-2 w-full mb-8">
+          <div className="flex items-start md:items-center justify-center flex-grow-[8] md:p-10">
+            <form className="w-full mx-auto">
+              <div className="flex flex-col md:flex-row md:gap-4 w-full mb-4">
                 <div className="flex-1 flex flex-col gap-2">
-                  <div>
-                    <label
-                      htmlFor="company"
-                      className="block mb-1 text-sm font-medium text-gray-900"
-                    >
-                      이름
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      disabled
-                      value={data ? data.name : "-"}
-                      aria-describedby="helper-text-explanation"
-                      className="border disabled:text-gray-400 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                      placeholder="ex)쏘카"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="pSeq"
-                      className="block mb-1 text-sm font-medium text-gray-900"
-                    >
-                      휴대폰 번호
-                    </label>
-                    <input
-                      type="text"
-                      id="pSeq"
-                      disabled
-                      value={data ? data.phone : "-"}
-                      className="border disabled:text-gray-400 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                    />
-                  </div>
+                  <InputField
+                    label="이름"
+                    id="name"
+                    placeholder="이름을 입력해주세요."
+                    register={register}
+                    required={true}
+                    disabled={!update}
+                    className="mt-2"
+                  />
+                  <InputField
+                    label="전화번호"
+                    id="phone"
+                    placeholder="전화번호를 입력해주세요."
+                    register={register}
+                    required={true}
+                    disabled={!update}
+                    className="mt-2"
+                  />
                 </div>
-
                 <div className="flex-1 flex flex-col gap-2">
                   <div className="flex-1"></div>
                   <div>
-                    <label
-                      htmlFor="address"
-                      className="block mb-1 text-sm font-medium text-gray-900"
-                    >
-                      역할
-                    </label>
-                    <input
-                      type="text"
-                      id="address"
+                    <InputField
+                      label="역할"
+                      id="role"
+                      register={register}
+                      required={false}
                       disabled
-                      value={data ? data.roleName : "-"}
-                      className="border disabled:text-gray-400 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                      className="mt-2"
                     />
                   </div>
                 </div>
               </div>
-            </div>
+              {!update ? (
+                <div className="flex justify-end">
+                  <button
+                    className="bg-[#0078ff] text-white text-sm py-[10px] px-5 rounded-lg"
+                    onClick={handleUpdate}
+                  >
+                    수정하기
+                  </button>
+                </div>
+              ) : (
+                <div className="flex justify-end gap-3">
+                  <button
+                    className="bg-gray-400 text-white text-sm py-[10px] px-5 rounded-lg"
+                    onClick={handleCancel}
+                  >
+                    취소
+                  </button>
+                  <button
+                    className="bg-[#0078ff] text-white text-sm py-[10px] px-5 rounded-lg"
+                    onClick={handleSubmit(onSubmit)}
+                  >
+                    확인
+                  </button>
+                </div>
+              )}
+            </form>
           </div>
         </div>
       </div>

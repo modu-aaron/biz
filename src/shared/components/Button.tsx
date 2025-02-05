@@ -2,7 +2,7 @@ interface ButtonProps {
   text: string;
   onClick: () => void;
   isRounded: boolean;
-  additionalClasses: string;
+  additionalClasses?: string;
 }
 
 const Button = ({

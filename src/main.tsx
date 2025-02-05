@@ -11,14 +11,11 @@ createRoot(document.getElementById("root")!).render(
     <Router />
     <ToastContainer
       position="top-right"
-      autoClose={3000}
+      autoClose={2000}
       hideProgressBar={false}
       newestOnTop={true}
-      closeOnClick={true}
       rtl={true}
-      pauseOnFocusLoss
       draggable
-      pauseOnHover
     />
   </StrictMode>
 );

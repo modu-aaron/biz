@@ -78,6 +78,11 @@ export default function Partner() {
     reset,
   } = useForm({
     defaultValues: {
+      info: {
+        company: "",
+        pSeq: 0,
+        address: "",
+      },
       bank: "",
       cardNumber: "",
       expiryDate: "",
@@ -89,12 +94,15 @@ export default function Partner() {
   });
 
   const cardNumber = useWatch({ control, name: "cardNumber" });
-  const bank = useWatch({ control, name: "bank" });
+  const info = useWatch({ control, name: "info" });
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await PartnerService.getPartner();
       setData(response);
+      setValue("info.company", response.name);
+      setValue("info.pSeq", response.pSeq);
+      setValue("info.address", response.address);
       if (response.partnerCard?.number) {
         setValue("cardNumber", response.partnerCard.number);
       }
@@ -140,37 +148,25 @@ export default function Partner() {
                 <div className="flex-1 flex flex-col gap-2">
                   {/* 소속 */}
                   <div>
-                    <label
-                      htmlFor="company"
-                      className="block mb-1 text-sm font-medium text-gray-900"
-                    >
-                      소속
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
+                    <InputField
+                      label="소속"
+                      id="info.company"
+                      register={register}
+                      required={true}
                       disabled
-                      value={data.name || "-"}
-                      aria-describedby="helper-text-explanation"
-                      className="border disabled:text-gray-400 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                      placeholder="ex)쏘카"
+                      className="mt-2"
                     />
                   </div>
 
                   {/* 번호 */}
                   <div>
-                    <label
-                      htmlFor="pSeq"
-                      className="block mb-1 text-sm font-medium text-gray-900"
-                    >
-                      번호
-                    </label>
-                    <input
-                      type="text"
-                      id="pSeq"
+                    <InputField
+                      label="번호"
+                      id="info.pSeq"
+                      register={register}
+                      required={true}
                       disabled
-                      value={data.pSeq || "-"}
-                      className="border disabled:text-gray-400 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                      className="mt-2"
                     />
                   </div>
                 </div>
@@ -178,21 +174,14 @@ export default function Partner() {
                 {/* Right Section: 주소 */}
                 <div className="flex-1 flex flex-col gap-2">
                   <div className="flex-1"></div>
-                  <div>
-                    <label
-                      htmlFor="address"
-                      className="block mb-1 text-sm font-medium text-gray-900"
-                    >
-                      주소
-                    </label>
-                    <input
-                      type="text"
-                      id="address"
-                      disabled
-                      value={data.address || "-"}
-                      className="border disabled:text-gray-400 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                    />
-                  </div>
+                  <InputField
+                    label="주소"
+                    id="info.address"
+                    register={register}
+                    required={true}
+                    disabled
+                    className="mt-2"
+                  />
                 </div>
               </div>
               {!update && (

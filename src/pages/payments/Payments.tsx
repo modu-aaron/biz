@@ -110,6 +110,9 @@ const Payments = () => {
       receipt: {
         value: "영수증 보기",
         type: "button",
+        onClick: () => {
+          window.open(data.payment.receipt, "_blank", "width=800,height=1080");
+        },
       },
     }));
 

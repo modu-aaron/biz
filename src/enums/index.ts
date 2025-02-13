@@ -80,7 +80,6 @@ export enum MonthlyParkingRequestTypeCode {
   EXTEND = 110,
   CHANGE_CAR = 200,
   CHANGE_USER = 210,
-  CANCEL = 200,
   STOP = 310,
 }
 

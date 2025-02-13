@@ -1,6 +1,12 @@
 import { FaCcVisa } from "react-icons/fa";
 
-const Card = ({ cardNumber }: { cardNumber: string }) => {
+interface CardInfoProps {
+  cardNumber: string;
+  birth: string;
+  expiryDate: string;
+}
+
+const Card = ({ cardNumber, expiryDate }: CardInfoProps) => {
   return (
     <>
       <div className="relative border w-32 md:w-full aspect-square rounded-md overflow-hidden">
@@ -15,7 +21,7 @@ const Card = ({ cardNumber }: { cardNumber: string }) => {
         <h1 className="text-xl font-semibold tracking-tight leading-tight">
           {cardNumber || "**** **** **** ****"}
         </h1>
-        <p className="text-sm font-mono">MM/YY</p>
+        <p className="text-sm font-mono">{expiryDate || new Date().getDay()}</p>
       </div>
       <div className="mt-auto flex justify-between items-center">
         <span className="text-[0.6rem] font-medium px-2 py-[3px] rounded-sm">
